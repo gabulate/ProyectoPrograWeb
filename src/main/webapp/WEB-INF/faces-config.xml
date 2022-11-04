@@ -28,4 +28,9 @@
         <managed-bean-class>Controller.beanIngreso</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanListaPlanilla</managed-bean-name>
+        <managed-bean-class>Controller.beanListaPlanilla</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

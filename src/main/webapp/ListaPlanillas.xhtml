@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      import="java.util.LinkedList">
+    
+    <head>
+        <title>Lista de Planillas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <form>
+            <div align="center" class="datagrid">
+               
+            <br/>
+            <br/>
+            <h:dataTable value="#{beanListaPlanilla.listaPlanillas}" var="planilla">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha Inicio"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{planilla.fechaInicio}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha Final"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{planilla.fechaFinal}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tipo"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{planilla.tipo}"></h:outputText>
+                </h:column>
+                
+                
+            </h:dataTable>
+             <h:commandButton value="Consultar Lista Planillas" actionListener="#{beanListaPlanilla.MostrarLista()}"></h:commandButton>
+            </div>
+        </form>
+    </body>
+</html>
