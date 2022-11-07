@@ -6,7 +6,9 @@ package Model;
 
 import DAO.AccesoDatos;
 import DAO.SNMPExceptions;
+import com.sun.mail.imap.protocol.ID;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -50,9 +52,9 @@ public class PlanillaDB {
     }
 
     public LinkedList<Planilla> moTodo() throws SNMPExceptions, SQLException {
-        String select = "SELECT Num_Candidato,COUNT(Con_Voto) as Cantidad FROM VOTO_CANDIDATO group by Num_Candidato";
+        String select = "SELECT * FROM Planilla";
 
-        LinkedList<Planilla> listaVoto = new LinkedList<Planilla>();
+        LinkedList<Planilla> listaPlanilla = new LinkedList<Planilla>();
 
         try {
             //Se intancia la clase de acceso a datos
@@ -64,26 +66,27 @@ public class PlanillaDB {
             //se llama el array con los proyectos
             while (rsPA.next()) {
 
-                /*int numCand = rsPA.getInt("Num_Candidato");
-
-                int cantidad = rsPA.getInt("Cantidad");
+                int ID = rsPA.getInt("ID");
+                int IdJornada = rsPA.getInt("IdTipoJornada");
+                
+                Date FechaInicio = rsPA.getDate("FechaInicio");
+                Date FechaFinal = rsPA.getDate("FechaFinal");
+                Date FechaPago = rsPA.getDate("FechaPago");             
 
                 //se construye el objeto.
-                Voto perVoto = new Voto(numCand, cantidad);
+                Planilla planilla = new Planilla(ID, IdJornada, FechaInicio, FechaFinal, FechaPago);
 
-                listaVoto.add(perVoto);*/
+                listaPlanilla.add(planilla);
             }
             
-            rsPA.close();//se cierra el ResultSeat.
+            rsPA.close(); //se cierra el ResultSet.
 
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
         } catch (Exception e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
-        } finally {
-
         }
-        return listaVoto;
+        return listaPlanilla;
     }
 }

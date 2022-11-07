@@ -26,5 +26,4 @@ public class beanListaPlanilla {
     public void setListaPlanillas(LinkedList<Planilla> listaPlanillas) {
         this.listaPlanillas = listaPlanillas;
     }
-
 }

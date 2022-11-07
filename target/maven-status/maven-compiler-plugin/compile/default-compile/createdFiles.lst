@@ -1,3 +1,8 @@
-com\mycompany\proyectoprograwebnayegregorygabo\JAXRSConfiguration.class
+DAO\AccesoDatos.class
 Controller\beanIngreso.class
+Model\Planilla.class
+com\mycompany\proyectoprograwebnayegregorygabo\JAXRSConfiguration.class
+Controller\beanListaPlanilla.class
+DAO\SNMPExceptions.class
 com\mycompany\proyectoprograwebnayegregorygabo\resources\JavaEE8Resource.class
+Model\PlanillaDB.class

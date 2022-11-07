@@ -14,7 +14,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <form>
+        <h:form>
             <div align="center" class="datagrid">
                
             <br/>
@@ -38,13 +38,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:facet name="header">
                         <h:outputText value="Tipo"></h:outputText>
                     </f:facet>
-                    <h:outputText value="#{planilla.tipo}"></h:outputText>
+                    <h:outputText value="#{planilla.idTipoJornada}"></h:outputText>
                 </h:column>
                 
                 
             </h:dataTable>
              <h:commandButton value="Consultar Lista Planillas" actionListener="#{beanListaPlanilla.MostrarLista()}"></h:commandButton>
             </div>
-        </form>
+        </h:form>
     </body>
 </html>

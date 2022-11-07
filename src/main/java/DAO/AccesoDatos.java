@@ -62,7 +62,7 @@ public class AccesoDatos implements Serializable {
         public int ejecutaSQL(String pvcSQL)throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException  {
             //Crear el Driver para la conexion           
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            dbConn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=HR", "sa", "123456");
+            dbConn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=proyectoPlanilla", "sa", "123456");
             try{
                 //Crear el statemente para la ejecucion de sentencias
                 stmt = dbConn.createStatement();
@@ -101,7 +101,7 @@ public class AccesoDatos implements Serializable {
         ResultSet rs = null;
      
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dbConn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=HR", "sa", "123456");
+        dbConn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=proyectoPlanilla", "sa", "123456");
         
         try{
             //Crear el statemente para la ejecucion de sentencias
