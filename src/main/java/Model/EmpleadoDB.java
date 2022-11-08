@@ -12,17 +12,17 @@ import java.util.LinkedList;
  *
  * @author Gabri
  */
-public class PlanillaDB {
+public class EmpleadoDB {
 
     private AccesoDatos accesoDatos = new AccesoDatos();
     private Connection conn;
 
-    public PlanillaDB() {
+    public EmpleadoDB() {
         accesoDatos = new AccesoDatos();
         accesoDatos.setDbConn(conn);
     }
 
-    public void Insertar(Planilla planilla) throws SNMPExceptions, SQLException {
+    public void Insertar(Empleado empleado) throws SNMPExceptions, SQLException {
         String strSQL = "";
 
         try {
@@ -46,34 +46,32 @@ public class PlanillaDB {
         }
     }
 
-    public LinkedList<Planilla> moTodo() throws SNMPExceptions, SQLException {
-        String select = "SELECT * FROM Planilla";
+    public LinkedList<Empleado> moTodo() throws SNMPExceptions, SQLException {
+        String select = "SELECT * FROM Empleado";
 
-        LinkedList<Planilla> listaPlanilla = new LinkedList<Planilla>();
+        LinkedList<Empleado> lista = new LinkedList<>();
 
         try {
             //Se intancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
-            
+
             //se ejecuta la sentencia sql
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
-            
+
             //se llama el array con los proyectos
             while (rsPA.next()) {
 
                 int ID = rsPA.getInt("ID");
-                int IdJornada = rsPA.getInt("IdTipoJornada");
-                
-                Date FechaInicio = rsPA.getDate("FechaInicio");
-                Date FechaFinal = rsPA.getDate("FechaFinal");
-                Date FechaPago = rsPA.getDate("FechaPago");
+                String Nombre = rsPA.getString("Nombre");
+                int IdTipoJornada = rsPA.getInt("IdTipoJornada");
+                float Salario = rsPA.getFloat("Salario");
 
                 //se construye el objeto.
-                Planilla planilla = new Planilla(ID, IdJornada, FechaInicio, FechaFinal, FechaPago);
+                Empleado empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario);
 
-                listaPlanilla.add(planilla);
+                lista.add(empleado);
             }
-            
+
             rsPA.close(); //se cierra el ResultSet.
 
         } catch (SQLException e) {
@@ -82,6 +80,6 @@ public class PlanillaDB {
         } catch (Exception e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         }
-        return listaPlanilla;
+        return lista;
     }
 }

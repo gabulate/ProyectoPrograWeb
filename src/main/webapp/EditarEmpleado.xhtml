@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Editar Empleado</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h:form>
+            <div align="center">
+                <h:outputText value="Nombre:"></h:outputText>
+                <h:inputText value="#{beanEmpleados.empleado.nombre}"></h:inputText>
+
+                <h:outputText value="Tipo de Jornada:"></h:outputText>
+                <!-- Hacer Combo aquí -->
+
+                <h:outputText value="Salario:"></h:outputText>
+                <h:inputText value="#{beanEmpleados.empleado.salario}"></h:inputText>
+
+                <!-- Hacer lista de cobros y beneficios -->
+
+                <h:commandButton class="button" value="Guardar" actionListener="Acualizar"></h:commandButton>
+            </div>
+        </h:form>
+    </body>
+</html>

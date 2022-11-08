@@ -33,4 +33,9 @@
         <managed-bean-class>Controller.beanListaPlanilla</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanEmpleados</managed-bean-name>
+        <managed-bean-class>Controller.beanEmpleados</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>
