@@ -30,7 +30,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <f:facet name="header">
                             <h:outputText value="Tipo Jornada"></h:outputText>
                         </f:facet>
-                        <h:outputText value="#{empleado.idTipoJornada}"></h:outputText>
+                        <h:outputText value="#{empleado.jornada}"></h:outputText>
                     </h:column>
 
                     <h:column>
@@ -44,7 +44,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <f:facet name="header">
                             <h:outputText value="Acciones"></h:outputText>
                         </f:facet>
-                        <h:commandLink value="Editar" actionListener="#{beanEmpleado.Editar(empleado)}" ></h:commandLink>
+                        <h:commandLink value="Editar" actionListener="#{beanEmpleados.Editar(empleado)}" ></h:commandLink>
                     </h:column>
 
                 </h:dataTable>

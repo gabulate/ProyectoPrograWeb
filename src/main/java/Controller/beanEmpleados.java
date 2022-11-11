@@ -3,6 +3,8 @@ package Controller;
 import DAO.SNMPExceptions;
 import Model.Empleado;
 import Model.EmpleadoDB;
+import Model.TipoJornada;
+import Model.TipoJornadaDB;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -16,6 +18,9 @@ public class beanEmpleados {
     private LinkedList<Empleado> listaEmpleados = new LinkedList<>();
 
     private Empleado empleado;
+    
+    private String jornada = "";
+    private LinkedList<TipoJornada> listaJornadas;
 
     private String mensaje = "";
     
@@ -58,5 +63,23 @@ public class beanEmpleados {
 
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
+    }
+
+    public String getJornada() {
+        return jornada;
+    }
+
+    public void setJornada(String jornada) {
+        this.jornada = jornada;
+    }
+
+    public LinkedList<TipoJornada> getListaJornadas() throws SNMPExceptions, SQLException {
+        listaJornadas = new TipoJornadaDB().moTodo();
+        
+        return listaJornadas;
+    }
+
+    public void setListaJornadas(LinkedList<TipoJornada> listaJornadas) {
+        this.listaJornadas = listaJornadas;
     }
 }

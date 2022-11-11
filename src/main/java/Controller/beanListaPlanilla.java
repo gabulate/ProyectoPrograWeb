@@ -18,20 +18,20 @@ public class beanListaPlanilla {
 
     private LinkedList<Planilla> listaPlanillas = new LinkedList<>();
 
-    private LinkedList<DetallePlanilla> ListaDetallePlanilla = new LinkedList<>();
+    private LinkedList<DetallePlanilla> ListaDetallePlanilla;
 
     private String mensaje = "";
 
     //Pasa a la página de detalle con la lista de detalles de la planilla seleccionada
     public void MostrarDetalle(Planilla planilla) throws SNMPExceptions, SQLException, IOException {
-        this.setListaDetallePlanilla(new DetallePlanillaDB().getFromIdPlanilla(planilla.getID()));
-
+        ListaDetallePlanilla = new DetallePlanillaDB().getFromIdPlanilla(planilla.getID());
+        
         FacesContext.getCurrentInstance().getExternalContext().redirect("VerPlanilla.xhtml");
     }
 
     //Trae la lista de planillas de la base de datos
     public void MostrarLista() throws SNMPExceptions, SQLException {
-
+        
         this.setListaPlanillas(new PlanillaDB().moTodo());
     }
 
@@ -57,7 +57,8 @@ public class beanListaPlanilla {
         this.mensaje = mensaje;
     }
 
-    public LinkedList<DetallePlanilla> getListaDetallePlanilla() {
+    public LinkedList<DetallePlanilla> getListaDetallePlanilla(){
+        System.out.print(ListaDetallePlanilla.size());
         return ListaDetallePlanilla;
     }
 

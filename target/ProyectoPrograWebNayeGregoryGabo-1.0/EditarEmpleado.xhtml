@@ -14,7 +14,12 @@
                 <h:inputText value="#{beanEmpleados.empleado.nombre}"></h:inputText>
 
                 <h:outputText value="Tipo de Jornada:"></h:outputText>
-                <!-- Hacer Combo aquí -->
+
+                <h:selectOneMenu label="jornada" value="#{beanEmpleados.empleado.jornada}">
+                    <f:selectItems value="#{beanEmpleados.listaJornadas}"/>
+                </h:selectOneMenu>
+                <br></br>
+                <br></br>
 
                 <h:outputText value="Salario:"></h:outputText>
                 <h:inputText value="#{beanEmpleados.empleado.salario}"></h:inputText>
