@@ -12,14 +12,16 @@ public class Empleado {
     String Nombre;
     int IdTipoJornada;
     float Salario;
+    boolean Activo;
     
     String jornada;
 
-    public Empleado(int ID, String Nombre, int IdTipoJornada, float Salario) throws SNMPExceptions, SQLException {
+    public Empleado(int ID, String Nombre, int IdTipoJornada, float Salario, boolean Activo) throws SNMPExceptions, SQLException {
         this.ID = ID;
         this.Nombre = Nombre;
         this.IdTipoJornada = IdTipoJornada;
         this.Salario = Salario;
+        this.Activo = Activo;
         
         jornada = new TipoJornadaDB().getByID(IdTipoJornada).Nombre;
     }
@@ -63,6 +65,13 @@ public class Empleado {
     public void setJornada(String jornada) {
         this.jornada = jornada;
     }
-    
+
+    public boolean isActivo() {
+        return Activo;
+    }
+
+    public void setActivo(boolean Activo) {
+        this.Activo = Activo;
+    }
     
 }

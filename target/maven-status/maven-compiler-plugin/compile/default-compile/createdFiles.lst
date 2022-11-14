@@ -8,6 +8,7 @@ com\mycompany\proyectoprograwebnayegregorygabo\resources\JavaEE8Resource.class
 Model\BeneficioDB.class
 Model\Bonus.class
 Model\RebajoDB.class
+Model\TipoJornadaDB.class
 Model\EmpleadoDB.class
 DAO\AccesoDatos.class
 Controller\beanIngreso.class
@@ -15,6 +16,7 @@ com\mycompany\proyectoprograwebnayegregorygabo\JAXRSConfiguration.class
 Controller\beanListaPlanilla.class
 DAO\SNMPExceptions.class
 Model\DetallePlanilla.class
+Model\TipoJornada.class
 Controller\beanEmpleados.class
 Model\PlanillaDB.class
 Model\Beneficio.class

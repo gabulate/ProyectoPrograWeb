@@ -10,11 +10,18 @@
     <body>
         <h:form>
             <div align="center">
+
+                <h:commandButton class="button" value="Guardar" actionListener="#{beanEmpleados.Guardar()}"></h:commandButton>
+                <h:commandButton class="button" value="Salir" actionListener="#{beanEmpleados.Cancelar()}"></h:commandButton>
+                <br></br>
+                <br></br>
+
                 <h:outputText value="Nombre:"></h:outputText>
                 <h:inputText value="#{beanEmpleados.empleado.nombre}"></h:inputText>
+                <br></br>
+                <br></br>
 
                 <h:outputText value="Tipo de Jornada:"></h:outputText>
-
                 <h:selectOneMenu label="jornada" value="#{beanEmpleados.empleado.jornada}">
                     <f:selectItems value="#{beanEmpleados.listaJornadas}"/>
                 </h:selectOneMenu>
@@ -23,10 +30,69 @@
 
                 <h:outputText value="Salario:"></h:outputText>
                 <h:inputText value="#{beanEmpleados.empleado.salario}"></h:inputText>
+                <br></br>
+                <br></br>
 
-                <!-- Hacer lista de cobros y beneficios -->
+                <h:outputText value="Activo:"></h:outputText>
+                <h:selectBooleanCheckbox value="#{beanEmpleados.empleado.activo}"></h:selectBooleanCheckbox>
+                <br></br>
+                <br></br>
 
-                <h:commandButton class="button" value="Guardar" actionListener="Acualizar"></h:commandButton>
+                <!-- Lista Cobros -->
+
+                <h3>Deducciones:</h3>
+                <h:dataTable value="#{beanEmpleados.listaDeducciones}" var="deduccion">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Detalle"></h:outputText>
+                        </f:facet>
+                        <h:inputText value="#{deduccion.detalle}"></h:inputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cantidad"></h:outputText>
+                        </f:facet>
+                        <h:inputText value="#{deduccion.cantidad}"></h:inputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Monto Fijo"></h:outputText>
+                        </f:facet>
+                        <h:selectBooleanCheckbox value="#{deduccion.fijo}"></h:selectBooleanCheckbox>
+                    </h:column>
+                </h:dataTable>
+
+                <h:commandButton class="button" value="Añadir nueva deducción" actionListener="#{beanEmpleados.AnadirDeduccion()}"></h:commandButton>
+
+
+                <!-- Lista Beneficios -->
+                <h3>Beneficios:</h3>
+                <h:dataTable value="#{beanEmpleados.listaBeneficios}" var="beneficio" >
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Detalle"></h:outputText>
+                        </f:facet>
+                        <h:inputText value="#{beneficio.detalle}"></h:inputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cantidad"></h:outputText>
+                        </f:facet>
+                        <h:inputText value="#{beneficio.cantidad}"></h:inputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Monto Fijo"></h:outputText>
+                        </f:facet>
+                        <h:selectBooleanCheckbox value="#{beneficio.fijo}"></h:selectBooleanCheckbox>
+                    </h:column>
+                </h:dataTable>
+
+                <h:commandButton class="button" value="Añadir nuevo beneficio" actionListener="#{beanEmpleados.AnadirBeneficio()}"></h:commandButton>
             </div>
         </h:form>
     </body>

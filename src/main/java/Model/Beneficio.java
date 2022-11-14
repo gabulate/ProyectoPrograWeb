@@ -5,6 +5,7 @@ package Model;
  * @author Gabri
  */
 public class Beneficio {
+
     int ID;
     int IdEmpleado;
     String Detalle;
@@ -17,6 +18,9 @@ public class Beneficio {
         this.Detalle = Detalle;
         this.Cantidad = Cantidad;
         this.Fijo = Fijo;
+    }
+
+    public Beneficio() {
     }
 
     public int getID() {
@@ -58,6 +62,5 @@ public class Beneficio {
     public void setFijo(boolean Fijo) {
         this.Fijo = Fijo;
     }
-    
-    
+
 }

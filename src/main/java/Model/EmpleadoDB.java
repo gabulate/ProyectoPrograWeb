@@ -26,19 +26,28 @@ public class EmpleadoDB {
         String strSQL = "";
 
         try {
+            strSQL = String.format("INSERT INTO Empleado VALUES ('%s', %d, %f, '%s')",
+                    empleado.Nombre, empleado.IdTipoJornada, empleado.Salario, empleado.Activo);
 
-            /*strSQL
-                    = "INSERT INTO VOTO_CANDIDATO(Tip_Identificacion,Num_Identificacion,Nom_Persona,Nom_Apellido1,"
-                    + "Nom_Apellido2,Num_Candidato) VALUES "
-                    + "(" + "'" + planilla.getTip_Identificacion() + "'" + ","
-                    + "'" + planilla.getNum_Identificacion() + "'" + ","
-                    + "'" + planilla.getNomPersona() + "'" + ","
-                    + "'" + planilla.getNom_Apellido1() + "'" + ","
-                    + "'" + planilla.getNom_Apellido2() + "'" + ","
-                    + "'" + planilla.getNum_Candidato() + "'" + ")";*/
-            //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);
 
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
+
+    public void Actualizar(Empleado empleado) throws SNMPExceptions, SQLException {
+        String strSQL = "";
+
+        try {
+
+            strSQL = String.format("UPDATE Empleado SET Nombre = '%s', IdTipoJornada = %d, Salario = %f, Activo = '%s' WHERE ID = %d",
+                    empleado.Nombre, empleado.IdTipoJornada, empleado.Salario, empleado.Activo, empleado.ID);
+
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL);
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
         } catch (Exception e) {
@@ -65,9 +74,10 @@ public class EmpleadoDB {
                 String Nombre = rsPA.getString("Nombre");
                 int IdTipoJornada = rsPA.getInt("IdTipoJornada");
                 float Salario = rsPA.getFloat("Salario");
+                boolean Activo = rsPA.getBoolean("Activo");
 
                 //se construye el objeto.
-                Empleado empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario);
+                Empleado empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario, Activo);
 
                 lista.add(empleado);
             }

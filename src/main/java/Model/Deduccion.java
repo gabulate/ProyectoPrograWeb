@@ -19,6 +19,9 @@ public class Deduccion {
         this.Fijo = Fijo;
     }
 
+    public Deduccion() {
+    }
+
     public int getID() {
         return ID;
     }
