@@ -58,4 +58,86 @@ public class BeneficioDB {
         }
         return lista;
     }
+
+    public void InsertarOActualizar(Beneficio ben)
+            throws SNMPExceptions, SQLException {
+        String select = "SELECT * FROM Beneficio WHERE ID = " + ben.getID();
+
+        try {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+
+            while (rsPA.next()) {
+                //Si entra aquí es porque sí existe un objeto con ese ID
+                Actualizar(ben);
+                rsPA.close(); //se cierra el ResultSet.
+                return;
+            }
+
+            //Si llega aquí es porque el objeto no existe y se crea
+            Insertar(ben);
+            rsPA.close(); //se cierra el ResultSet.
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
+
+    public void Insertar(Beneficio ben) throws SNMPExceptions, SQLException {
+        String strSQL = "";
+
+        try {
+            strSQL = String.format("INSERT INTO Beneficio VALUES (%d, '%s', %f, '%s')",
+                    ben.IdEmpleado, ben.Detalle, ben.Cantidad, ben.Fijo);
+            accesoDatos.ejecutaSQL(strSQL);
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
+
+    public void Actualizar(Beneficio ben) throws SNMPExceptions, SQLException {
+        String strSQL = "";
+
+        try {
+
+            strSQL = String.format("UPDATE Beneficio SET IdEmpleado = %d, Detalle = '%s', Cantidad = %f, Fijo = '%s' WHERE ID = %d",
+                    ben.IdEmpleado, ben.Detalle, ben.Cantidad, ben.Fijo, ben.ID);
+
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL);
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
+
+    public void Eliminar(Beneficio ben) throws SNMPExceptions {
+        String strSQL = "SELECT * FROM Beneficio WHERE ID = " + ben.getID();
+
+        try {
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(strSQL);
+
+            while (rsPA.next()) {
+                //Si entra aquí es porque sí existe un objeto con ese ID
+                strSQL = "DELETE FROM Beneficio WHERE ID = " + ben.getID();
+                accesoDatos.ejecutaSQL(strSQL);
+            }
+            
+            rsPA.close(); //se cierra el ResultSet.
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
 }

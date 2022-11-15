@@ -1,5 +1,8 @@
 package Model;
 
+import DAO.SNMPExceptions;
+import java.sql.SQLException;
+
 /**
  *
  * @author Gabri
@@ -14,8 +17,10 @@ public class DetallePlanilla {
     float SalarioBruto;
     float HorasExtra;
     float SalarioNeto;
+    
+    String Empleado;
 
-    public DetallePlanilla(int ID, int IdEmpleado, int IdPlanilla, String Detalle, float HorasTrabajadas, float SalarioBruto, float HorasExtra, float SalarioNeto) {
+    public DetallePlanilla(int ID, int IdEmpleado, int IdPlanilla, String Detalle, float HorasTrabajadas, float SalarioBruto, float HorasExtra, float SalarioNeto) throws SNMPExceptions, SQLException {
         this.ID = ID;
         this.IdEmpleado = IdEmpleado;
         this.IdPlanilla = IdPlanilla;
@@ -24,6 +29,8 @@ public class DetallePlanilla {
         this.SalarioBruto = SalarioBruto;
         this.HorasExtra = HorasExtra;
         this.SalarioNeto = SalarioNeto;
+        
+        Empleado = new EmpleadoDB().getByID(IdEmpleado).Nombre;
     }
 
     public int getID() {
@@ -36,6 +43,14 @@ public class DetallePlanilla {
 
     public int getIdEmpleado() {
         return IdEmpleado;
+    }
+
+    public String getEmpleado() {
+        return Empleado;
+    }
+
+    public void setEmpleado(String Empleado) {
+        this.Empleado = Empleado;
     }
 
     public void setIdEmpleado(int IdEmpleado) {

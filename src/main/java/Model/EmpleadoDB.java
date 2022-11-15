@@ -92,4 +92,38 @@ public class EmpleadoDB {
         }
         return lista;
     }
+    
+    public Empleado getByID(int id) throws SNMPExceptions, SQLException {
+        String select = "SELECT * FROM Empleado WHERE ID =" + id;
+
+        Empleado empleado = null;
+
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+
+            while (rsPA.next()) {
+                int ID = rsPA.getInt("ID");
+                String Nombre = rsPA.getString("Nombre");
+                int IdTipoJornada = rsPA.getInt("IdTipoJornada");
+                float Salario = rsPA.getFloat("Salario");
+                boolean Activo = rsPA.getBoolean("Activo");
+
+                empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario, Activo);
+            }
+
+            //se construye el objeto.
+            rsPA.close(); //se cierra el ResultSet.
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+        return empleado;
+    }
 }

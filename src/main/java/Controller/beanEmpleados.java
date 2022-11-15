@@ -30,6 +30,10 @@ public class beanEmpleados {
     private LinkedList<Deduccion> listaDeducciones;
     private LinkedList<Beneficio> listaBeneficios;
 
+    //Listas de beneficios y deducciones que el usuario quiera eliminar
+    private LinkedList<Deduccion> eliminarDeducciones = new LinkedList<>();
+    private LinkedList<Beneficio> eliminarBeneficios = new LinkedList<>();
+
     private String mensaje = "";
 
     //Pasa el empleado seleccionado y abre la página de editar
@@ -37,6 +41,7 @@ public class beanEmpleados {
         this.empleado = empleado;
 
         try {
+            listaJornadas = new TipoJornadaDB().moTodo();
             MostrarDeduccionesYBeneficios();
             mensaje = "";
         } catch (Exception e) {
@@ -49,6 +54,60 @@ public class beanEmpleados {
     //Guarda los cambios realizados en el empleado y sus deducciones y beneficios
     public void Guardar() throws SNMPExceptions, SQLException {
         new EmpleadoDB().Actualizar(empleado);
+
+        mensaje = "";
+
+        //Actualiza las deducciones y beneficios que ya existen y los nuevos los inserta
+        for (Deduccion ded : listaDeducciones) {
+            if (ded.getCantidad() > 0) {
+                new DeduccionDB().InsertarOActualizar(ded);
+            } else {
+                mensaje += "\nEl valor de '" + ded.getDetalle() + "' no se ha guardado por tener un valor menor a 0.";
+            }
+        }
+
+        for (Beneficio ben : listaBeneficios) {
+            if (ben.getCantidad() > 0) {
+                new BeneficioDB().InsertarOActualizar(ben);
+            } else {
+                mensaje += "\nEl valor de '" + ben.getDetalle() + "' no se ha guardado por tener un valor menor a 0.";
+            }
+        }
+
+        //Elimina de la base de datos las deducciones y beneficios en las listas para eliminar
+        for (Deduccion ded : eliminarDeducciones) {
+            if (ded.getCantidad() > 0) {
+                new DeduccionDB().Eliminar(ded);
+            }
+        }
+        eliminarDeducciones = new LinkedList<>();
+
+        for (Beneficio ben : eliminarBeneficios) {
+            if (ben.getCantidad() > 0) {
+                new BeneficioDB().Eliminar(ben);
+            }
+        }
+        eliminarBeneficios = new LinkedList<>();
+
+        //Muestra la lista actualizada de deducciones y cambios con los cambios realizados
+        MostrarDeduccionesYBeneficios();
+    }
+
+    //Añade el objeto a una lista para ser eliminada al guardar
+    public void EliminarDeduccion(Deduccion deduccion) {
+        eliminarDeducciones.add(deduccion);
+        listaDeducciones.remove(deduccion);
+    }
+
+    public void EliminarBeneficio(Beneficio beneficio) {
+        eliminarBeneficios.add(beneficio);
+        listaBeneficios.remove(beneficio);
+    }
+
+    public void Deshacer() throws IOException, SNMPExceptions, SQLException {
+        Editar(new EmpleadoDB().getByID(this.empleado.getID()));
+        eliminarDeducciones = new LinkedList<>();
+        eliminarBeneficios = new LinkedList<>();
     }
 
     //Vuelve a la página de la lista de empleados
@@ -71,11 +130,11 @@ public class beanEmpleados {
         return listaEmpleados;
     }
 
-    public void AnadirEmpleado() throws SNMPExceptions, SQLException{
+    public void AnadirEmpleado() throws SNMPExceptions, SQLException {
         new EmpleadoDB().Insertar(new Empleado(0, "Empleado Nuevo", 1, 0, true));
         MostrarListaEmpleados();
     }
-    
+
     public void AnadirDeduccion() {
         this.listaDeducciones.add(new Deduccion(0, empleado.getID(), "Nuevo cobro", 0, false));
     }
@@ -135,8 +194,6 @@ public class beanEmpleados {
     }
 
     public LinkedList<TipoJornada> getListaJornadas() throws SNMPExceptions, SQLException {
-        listaJornadas = new TipoJornadaDB().moTodo();
-
         return listaJornadas;
     }
 

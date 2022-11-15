@@ -15,7 +15,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <body>
         <h:form>
             <div align="center" class="datagrid">
-
+                <a href="Principal.xhtml">Volver al Inicio</a>
                 <br/>
                 <br/>
                 <h:dataTable value="#{beanEmpleados.listaEmpleados}" var="empleado">
@@ -41,9 +41,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </h:column>     
 
                     <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Acciones"></h:outputText>
-                        </f:facet>
                         <h:commandLink value="Editar" actionListener="#{beanEmpleados.Editar(empleado)}" ></h:commandLink>
                     </h:column>
 

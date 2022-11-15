@@ -12,8 +12,10 @@
             <div align="center">
 
                 <h:commandButton class="button" value="Guardar" actionListener="#{beanEmpleados.Guardar()}"></h:commandButton>
+                <h:commandButton class="button" value="Deshacer cambios" actionListener="#{beanEmpleados.Deshacer()}"></h:commandButton>
                 <h:commandButton class="button" value="Salir" actionListener="#{beanEmpleados.Cancelar()}"></h:commandButton>
                 <br></br>
+                <h:outputLabel value="#{beanEmpleados.mensaje}" style="color: red"></h:outputLabel>
                 <br></br>
 
                 <h:outputText value="Nombre:"></h:outputText>
@@ -62,6 +64,10 @@
                         </f:facet>
                         <h:selectBooleanCheckbox value="#{deduccion.fijo}"></h:selectBooleanCheckbox>
                     </h:column>
+
+                    <h:column>
+                        <h:commandLink value="Eliminar" actionListener="#{beanEmpleados.EliminarDeduccion(deduccion)}" ></h:commandLink>
+                    </h:column>
                 </h:dataTable>
 
                 <h:commandButton class="button" value="Añadir nueva deducción" actionListener="#{beanEmpleados.AnadirDeduccion()}"></h:commandButton>
@@ -89,6 +95,10 @@
                             <h:outputText value="Monto Fijo"></h:outputText>
                         </f:facet>
                         <h:selectBooleanCheckbox value="#{beneficio.fijo}"></h:selectBooleanCheckbox>
+                    </h:column>
+                    
+                    <h:column>
+                        <h:commandLink value="Eliminar" actionListener="#{beanEmpleados.EliminarBeneficio(beneficio)}" ></h:commandLink>
                     </h:column>
                 </h:dataTable>
 
