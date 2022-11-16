@@ -53,6 +53,12 @@ public class beanEmpleados {
 
     //Guarda los cambios realizados en el empleado y sus deducciones y beneficios
     public void Guardar() throws SNMPExceptions, SQLException {
+        for (int i = 0; i < listaJornadas.size(); i++) {
+            if (listaJornadas.get(i).getNombre().equals(empleado.getJornada())) {
+                empleado.setIdTipoJornada(listaJornadas.get(i).getID());
+            }
+        }
+
         new EmpleadoDB().Actualizar(empleado);
 
         mensaje = "";
@@ -90,6 +96,7 @@ public class beanEmpleados {
         eliminarBeneficios = new LinkedList<>();
 
         //Muestra la lista actualizada de deducciones y cambios con los cambios realizados
+        empleado = new EmpleadoDB().getByID(empleado.getID());
         MostrarDeduccionesYBeneficios();
     }
 

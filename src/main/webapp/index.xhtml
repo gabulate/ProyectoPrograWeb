@@ -2,31 +2,61 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <h:head>
-        <title>Ingreso</title>
-        
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>
-        <!--<link rel="stylesheet" href="index.css" ></link>-->
-        <link rel="stylesheet" href="/index.css" ></link>
+
+        <link rel="stylesheet" href="css/index.css"></link>
+        <link rel="shortcut icon" href="img/oie_transparent.png"></link>
+
+        <title>Inicio de Sesión</title>
     </h:head>
     <h:body>
-        <h:form>
-            <h1>Ingreso</h1>
-            <h:outputLabel value="Nombre de Usuarioooooo: "></h:outputLabel>
-            <h:inputText value="#{beanIngreso.usuario}"></h:inputText>
-            <br></br>
+        <div class="col-12 col-sm-7 col-md-12 col-lg-7 col-xl-7 container h-100 justify-content-center mt-x pb-5">
+            <div class="text-center fondo rounded  pb-2"> 
 
-            <h:outputLabel value="Contraseña: "></h:outputLabel>
-            <h:inputText value="#{beanIngreso.clave}"></h:inputText>
-            <br></br>
+                <div class="container-fluid h-100 d-flex justify-content-center">
+                    <div class="row">
 
-            <h:outputLabel value="#{beanIngreso.mensaje}"></h:outputLabel>
+                        <!--Grid column-->
+                        <div class="col-md-6 col-12">
+                            <img src="img/oie_transparent.png" class="rounded float-left img-fluid mt-2" ></img>
+                        </div>
+                        <div class="vl rounded"></div>
+                        <!--Grid column-->
+                        <div class="col-md-6 col-12">
+                            <h:form class="mt-5">
+                                <div class="container-fluid">
+                                    <h2 class="titulo">Inicio Sesión</h2>
+                                    <div class="row">
+                                        <div class="col-sm letras ">
+                                            <h:outputLabel for="username" value="Correo Electronico" class="mr-2 "></h:outputLabel>  
+                                            <br/> 
+                                            <h:inputText id="username" value="#{beanIngreso.usuario}" class="" required="true" requiredMessage="Ingrese su nombre de usuario." />
+                                            <br/>  
+                                        </div>
+                                        <br/> 
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-sm letras">
+                                            <h:outputLabel for="contrasena" value="Contraseña" class="mr-2"></h:outputLabel>  
+                                            <br/> 
+                                            <h:inputText  id="contrasena" value="#{beanIngreso.clave}"  class="" required="true" requiredMessage="Ingrese su contraseña."/>
+                                            <br/> 
+                                        </div>
+                                        <br/> 
+                                    </div>
 
-            <br></br>
-
-            <h:commandButton value="Ingresar" actionListener="#{beanIngreso.Ingresar()}"></h:commandButton>
-        </h:form>
-
+                                    <h:commandButton id="submit-button" value="Ingresar" actionListener="#{beanIngreso.Ingresar()}" class="enviar"/>  
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </h:body>
+    
 </html>
 

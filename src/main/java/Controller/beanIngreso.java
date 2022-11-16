@@ -1,5 +1,7 @@
 package Controller;
 
+import DAO.SNMPExceptions;
+import Model.UsuarioDB;
 import java.io.IOException;
 import javax.faces.context.FacesContext;
 
@@ -13,8 +15,12 @@ public class beanIngreso {
 
     String mensaje = "";
 
-    public void Ingresar() throws IOException {    
-        
+    public void Ingresar() throws IOException, SNMPExceptions {    
+        if(new UsuarioDB().VerificarUsuario(usuario, clave)){
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Principal.xhtml");
+        } else{
+            mensaje = "Credenciales incorrectas.";
+        }
     }
 
     public String getUsuario() {

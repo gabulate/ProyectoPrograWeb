@@ -5,22 +5,24 @@
     <head>
         <title>Ver Planilla</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/mantenimiento.css"></link>
     </head>
     <body>
         <h:form>
 
             <div align="center" class="datagrid">
-                <a href="#{request.contextPath}//faces//ListaPlanillas.xhtml">Regresar a Lista de Planillas</a>
-                <br/>
-                <br/>
-                <h3>Detalle Planilla</h3>
                 
-                <h:dataTable value="#{beanListaPlanilla.listaDetallePlanilla}" var="detalle">
+                <div class="pablo">
+                        <h3>Detalle Planilla</h3>
+                </div>
+                
+                
+                <h:dataTable value="#{beanListaPlanilla.listaDetallePlanilla}" var="detalle" class="tabla">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Empleado"></h:outputText>
                         </f:facet>
-                        <h:outputText value="#{detalle.empleado}"></h:outputText>
+                        <h:outputText value="#{detalle.idEmpleado}"></h:outputText>
                     </h:column>
 
                     <h:column>
@@ -57,9 +59,15 @@
                         </f:facet>
                         <h:outputText value="#{detalle.salarioNeto}"></h:outputText>
                     </h:column>
-
+                <br/>
+                <br/>
                 </h:dataTable>
             </div>
+            <div align="center" >
+                <button><a href="#{request.contextPath}//faces//ListaPlanillas.xhtml">Regresar a Lista de Planillas</a></button>
+                
+            </div>
+            
         </h:form>
     </body>
 </html>

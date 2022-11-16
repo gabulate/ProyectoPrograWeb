@@ -11,14 +11,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <head>
         <title>Administrar Empleados</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/mantenimiento.css"></link>
     </head>
     <body>
         <h:form>
             <div align="center" class="datagrid">
+                <br/><br/>
                 <a href="Principal.xhtml">Volver al Inicio</a>
-                <br/>
-                <br/>
-                <h:dataTable value="#{beanEmpleados.listaEmpleados}" var="empleado">
+                <br/><br/>
+                <h:dataTable value="#{beanEmpleados.listaEmpleados}" var="empleado" class="tabla">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Nombre"></h:outputText>
@@ -41,6 +42,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </h:column>     
 
                     <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Acciones"></h:outputText>
+                        </f:facet>
                         <h:commandLink value="Editar" actionListener="#{beanEmpleados.Editar(empleado)}" ></h:commandLink>
                     </h:column>
 

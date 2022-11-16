@@ -1,0 +1,76 @@
+body{
+    background-image: url("../img/brooke-lark-wMzx2nBdeng-unsplash.jpg"); 
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+}
+.mt-x{
+    margin-top: 80px;
+}
+.letras{
+    color: bisque; font-family: 'Lato', sans-serif; 
+    font-size: 20px;
+    color: white;
+    margin-bottom: 2px;
+}
+.cajas{
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+.enviar{
+	box-shadow:inset -2px 15px 19px 0px #8a9999;
+	background-color:transparent;
+	border-radius:12px;
+	border:2px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Verdana;
+	font-size:13px;
+	font-weight:bold;
+	padding:10px 20px;
+	text-decoration:none;
+	text-shadow:0px 0px 5px #017a6d;
+        margin-top: 20px;
+}
+.enviar:hover {
+    
+	background:linear-gradient(to bottom, #0d1212 5%, #017a6d 100%);
+	background-color:#6c7c7c;
+}
+.vl {
+    border-left: 2px solid black;
+    height: 465px;
+    position: absolute;
+    left: 50%;
+    margin-top:20px; 
+    margin-left: -3px;
+    margin-top: 4px;
+    top: 0;
+}
+.titulo{
+    color: azure; font-family: 'Lato', sans-serif; 
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 40px;
+    margin: 0 0 40px;
+}
+.fondo{
+    background-color: rgba(62, 62, 79,  0.5) ;
+
+}
+@media only screen and (max-width: 600px) {
+    body {
+        background-position: center center;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media only screen and (max-width: 1240px) {
+
+}
+
+
