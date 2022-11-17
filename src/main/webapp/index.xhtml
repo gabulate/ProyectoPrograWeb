@@ -33,7 +33,7 @@
                                         <div class="col-sm letras ">
                                             <h:outputLabel for="username" value="Correo Electronico" class="mr-2 "></h:outputLabel>  
                                             <br/> 
-                                            <h:inputText id="username" value="#{beanIngreso.usuario}" class="" required="true" requiredMessage="Ingrese su nombre de usuario." />
+                                            <h:inputText id="username" value="#{beanIngreso.nombre}" class="" required="true" requiredMessage="Ingrese su nombre de usuario." />
                                             <br/>  
                                         </div>
                                         <br/> 
@@ -42,8 +42,9 @@
                                         <div class="col-sm letras">
                                             <h:outputLabel for="contrasena" value="Contraseña" class="mr-2"></h:outputLabel>  
                                             <br/> 
-                                            <h:inputText  id="contrasena" value="#{beanIngreso.clave}"  class="" required="true" requiredMessage="Ingrese su contraseña."/>
+                                            <h:inputSecret  id="contrasena" value="#{beanIngreso.clave}"  class="mr-2" required="true" requiredMessage="Ingrese su contraseña."/>
                                             <br/> 
+                                            <h:outputLabel for="contrasena" value="#{beanIngreso.mensaje}" class="mr-2" style="color: red"></h:outputLabel>  
                                         </div>
                                         <br/> 
                                     </div>

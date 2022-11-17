@@ -1,13 +1,16 @@
+Model\Rol.class
 Model\Deduccion.class
 Model\Rebajo.class
 com\mycompany\proyectoprograwebnayegregorygabo\resources\JavaEE8Resource.class
 Model\BeneficioDB.class
 Model\TipoJornadaDB.class
+Model\RolDB.class
 Model\TipoJornada.class
 Model\Beneficio.class
 Model\DeduccionDB.class
 Model\Empleado.class
 Model\Planilla.class
+Model\Usuario.class
 Model\BonusDB.class
 Model\Bonus.class
 Model\RebajoDB.class
@@ -19,5 +22,6 @@ Controller\beanListaPlanilla.class
 DAO\SNMPExceptions.class
 Model\DetallePlanilla.class
 Controller\beanEmpleados.class
+Model\UsuarioDB.class
 Model\PlanillaDB.class
 Model\DetallePlanillaDB.class

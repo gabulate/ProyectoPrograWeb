@@ -32,6 +32,8 @@ ELSE
 SELECT 0 as 'Aprobado'
 
 EXECUTE VerificarLogin @Usuario = 'Gabo', @Contrasenna = 'bizcocho'
+
+SELECT CAST(DECRYPTBYPASSPHRASE('JAWY', Contrasenna) as nvarchar(100)) FROM Usuario
 --###############################################################################################################################################
 
 CREATE PROCEDURE CambiarContrasenna

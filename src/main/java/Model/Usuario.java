@@ -1,5 +1,8 @@
 package Model;
 
+import DAO.SNMPExceptions;
+import java.sql.SQLException;
+
 /**
  *
  * @author Gabri
@@ -8,13 +11,15 @@ public class Usuario {
     int ID;
     String Nombre;
     int IdRol;
-    String Contrasenna;
+    
+    String Rol;
 
-    public Usuario(int ID, String Nombre, int IdRol, String Contrasenna) {
+    public Usuario(int ID, String Nombre, int IdRol) throws SNMPExceptions, SQLException {
         this.ID = ID;
         this.Nombre = Nombre;
         this.IdRol = IdRol;
-        this.Contrasenna = Contrasenna;
+        
+        this.Rol = new RolDB().getByID(IdRol).Nombre;
     }
 
     public int getID() {
@@ -41,12 +46,12 @@ public class Usuario {
         this.IdRol = IdRol;
     }
 
-    public String getContrasenna() {
-        return Contrasenna;
+    public String getRol() {
+        return Rol;
     }
 
-    public void setContrasenna(String Contrasenna) {
-        this.Contrasenna = Contrasenna;
+    public void setRol(String Rol) {
+        this.Rol = Rol;
     }
     
     
