@@ -1,25 +1,38 @@
 package Model;
 
+import DAO.SNMPExceptions;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.text.DateFormat;
 
 /**
  *
  * @author Gabri
  */
 public class Planilla {
+
     int ID;
     int IdTipoJornada;
     Date FechaInicio;
     Date FechaFinal;
     Date FechaPago;
+    int IdTipoPlanilla;
 
-    public Planilla(int ID, int IdTipoJornada, Date FechaInicio, Date FechaFinal, Date FechaPago) {
+    String jornada;
+    String tipo;
+
+    public Planilla(int ID, int IdTipoJornada, Date FechaInicio, Date FechaFinal, Date FechaPago, int IdTipoPlanilla) throws SNMPExceptions, SQLException {
         this.ID = ID;
         this.IdTipoJornada = IdTipoJornada;
         this.FechaInicio = FechaInicio;
         this.FechaFinal = FechaFinal;
         this.FechaPago = FechaPago;
+        this.IdTipoPlanilla = IdTipoPlanilla;
+
+        jornada = new TipoJornadaDB().getByID(IdTipoJornada).Nombre;
+        tipo = new TipoPlanillaDB().getByID(IdTipoPlanilla).Nombre;
     }
+    
 
     public int getID() {
         return ID;
@@ -27,6 +40,14 @@ public class Planilla {
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    public int getIdTipoPlanilla() {
+        return IdTipoPlanilla;
+    }
+
+    public void setIdTipoPlanilla(int IdTipoPlanilla) {
+        this.IdTipoPlanilla = IdTipoPlanilla;
     }
 
     public int getIdTipoJornada() {
@@ -59,5 +80,21 @@ public class Planilla {
 
     public void setFechaPago(Date FechaPago) {
         this.FechaPago = FechaPago;
+    }
+
+    public String getJornada() {
+        return jornada;
+    }
+
+    public void setJornada(String jornada) {
+        this.jornada = jornada;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

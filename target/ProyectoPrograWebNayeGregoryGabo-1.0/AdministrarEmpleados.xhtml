@@ -22,6 +22,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:dataTable value="#{beanEmpleados.listaEmpleados}" var="empleado" class="tabla">
                     <h:column>
                         <f:facet name="header">
+                            <h:outputText value="Cédula"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{empleado.cedula}"></h:outputText>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
                             <h:outputText value="Nombre"></h:outputText>
                         </f:facet>
                         <h:outputText value="#{empleado.nombre}"></h:outputText>
@@ -32,6 +39,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                             <h:outputText value="Tipo Jornada"></h:outputText>
                         </f:facet>
                         <h:outputText value="#{empleado.jornada}"></h:outputText>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Teléfono"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{empleado.telefono}"></h:outputText>
                     </h:column>
 
                     <h:column>

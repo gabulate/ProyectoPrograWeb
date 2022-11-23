@@ -12,7 +12,6 @@ public class DetallePlanilla {
     int IdEmpleado;
     int IdPlanilla;
     
-    String Detalle;
     float HorasTrabajadas;
     float SalarioBruto;
     float HorasExtra;
@@ -20,11 +19,10 @@ public class DetallePlanilla {
     
     String Empleado;
 
-    public DetallePlanilla(int ID, int IdEmpleado, int IdPlanilla, String Detalle, float HorasTrabajadas, float SalarioBruto, float HorasExtra, float SalarioNeto) throws SNMPExceptions, SQLException {
+    public DetallePlanilla(int ID, int IdEmpleado, int IdPlanilla, float HorasTrabajadas, float SalarioBruto, float HorasExtra, float SalarioNeto) throws SNMPExceptions, SQLException {
         this.ID = ID;
         this.IdEmpleado = IdEmpleado;
         this.IdPlanilla = IdPlanilla;
-        this.Detalle = Detalle;
         this.HorasTrabajadas = HorasTrabajadas;
         this.SalarioBruto = SalarioBruto;
         this.HorasExtra = HorasExtra;
@@ -63,14 +61,6 @@ public class DetallePlanilla {
 
     public void setIdPlanilla(int IdPlanilla) {
         this.IdPlanilla = IdPlanilla;
-    }
-
-    public String getDetalle() {
-        return Detalle;
-    }
-
-    public void setDetalle(String Detalle) {
-        this.Detalle = Detalle;
     }
 
     public float getHorasTrabajadas() {

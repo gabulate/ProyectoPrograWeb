@@ -25,10 +25,10 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
 
     <managed-bean>
-        <managed-bean-name>beanListaPlanilla</managed-bean-name>
-        <managed-bean-class>Controller.beanListaPlanilla</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-name>beanPlanillas</managed-bean-name>
+        <managed-bean-class>Controller.beanPlanillas</managed-bean-class>
+    
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>beanEmpleados</managed-bean-name>
         <managed-bean-class>Controller.beanEmpleados</managed-bean-class>

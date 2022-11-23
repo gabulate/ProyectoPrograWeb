@@ -19,14 +19,17 @@ import javax.faces.context.FacesContext;
  * @author Gabri
  */
 public class beanEmpleados {
-
+    //Lista de los empleados registrados
     private LinkedList<Empleado> listaEmpleados = new LinkedList<>();
 
+    //Objeto empleado para editar
     private Empleado empleado;
 
+    //Propiedades para mostrar la lista de jornadas en el combobox
     private String jornada = "";
     private LinkedList<TipoJornada> listaJornadas;
 
+    //Listas para Mostrar los beneficios y deducciones del empleado
     private LinkedList<Deduccion> listaDeducciones;
     private LinkedList<Beneficio> listaBeneficios;
 
@@ -56,6 +59,7 @@ public class beanEmpleados {
         for (int i = 0; i < listaJornadas.size(); i++) {
             if (listaJornadas.get(i).getNombre().equals(empleado.getJornada())) {
                 empleado.setIdTipoJornada(listaJornadas.get(i).getID());
+                break;
             }
         }
 
@@ -138,7 +142,7 @@ public class beanEmpleados {
     }
 
     public void AnadirEmpleado() throws SNMPExceptions, SQLException {
-        new EmpleadoDB().Insertar(new Empleado(0, "Empleado Nuevo", 1, 0, true));
+        new EmpleadoDB().Insertar(new Empleado(0, "Empleado Nuevo", 1, 0, true, "", "8888-8888"));
         MostrarListaEmpleados();
     }
 

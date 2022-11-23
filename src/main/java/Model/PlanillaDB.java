@@ -26,17 +26,10 @@ public class PlanillaDB {
         String strSQL = "";
 
         try {
+            strSQL = String.format("INSERT INTO Planilla VALUES (%d, '%s', '%s', '%s', %d)",
+                    planilla.IdTipoJornada, planilla.FechaInicio.toString(), planilla.FechaFinal.toString(),
+                    planilla.FechaPago.toString(), planilla.IdTipoPlanilla);
 
-            /*strSQL
-                    = "INSERT INTO VOTO_CANDIDATO(Tip_Identificacion,Num_Identificacion,Nom_Persona,Nom_Apellido1,"
-                    + "Nom_Apellido2,Num_Candidato) VALUES "
-                    + "(" + "'" + planilla.getTip_Identificacion() + "'" + ","
-                    + "'" + planilla.getNum_Identificacion() + "'" + ","
-                    + "'" + planilla.getNomPersona() + "'" + ","
-                    + "'" + planilla.getNom_Apellido1() + "'" + ","
-                    + "'" + planilla.getNom_Apellido2() + "'" + ","
-                    + "'" + planilla.getNum_Candidato() + "'" + ")";*/
-            //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);
 
         } catch (SQLException e) {
@@ -45,35 +38,34 @@ public class PlanillaDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         }
     }
+    
+     public Planilla getUltima() throws SNMPExceptions, SQLException {
+        String select = "SELECT TOP 1 *  FROM Planilla ORDER BY ID desc";
 
-    public LinkedList<Planilla> moTodo() throws SNMPExceptions, SQLException {
-        String select = "SELECT * FROM Planilla";
-
-        LinkedList<Planilla> listaPlanilla = new LinkedList<Planilla>();
+        Planilla planilla = null;
 
         try {
             //Se intancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
-            
+
             //se ejecuta la sentencia sql
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
-            
+
             //se llama el array con los proyectos
             while (rsPA.next()) {
 
                 int ID = rsPA.getInt("ID");
                 int IdJornada = rsPA.getInt("IdTipoJornada");
-                
+
                 Date FechaInicio = rsPA.getDate("FechaInicio");
                 Date FechaFinal = rsPA.getDate("FechaFinal");
                 Date FechaPago = rsPA.getDate("FechaPago");
+                int IdTipoPlanilla = rsPA.getInt("IdTipoPlanilla");
 
                 //se construye el objeto.
-                Planilla planilla = new Planilla(ID, IdJornada, FechaInicio, FechaFinal, FechaPago);
-
-                listaPlanilla.add(planilla);
+                planilla = new Planilla(ID, IdJornada, FechaInicio, FechaFinal, FechaPago, IdTipoPlanilla);
             }
-            
+
             rsPA.close(); //se cierra el ResultSet.
 
         } catch (SQLException e) {
@@ -82,6 +74,48 @@ public class PlanillaDB {
         } catch (Exception e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         }
+
+        return planilla;
+    }
+
+    public LinkedList<Planilla> moTodo() throws SNMPExceptions, SQLException {
+        String select = "SELECT * FROM Planilla order by ID desc";
+
+        LinkedList<Planilla> listaPlanilla = new LinkedList<Planilla>();
+
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+
+            //se llama el array con los proyectos
+            while (rsPA.next()) {
+
+                int ID = rsPA.getInt("ID");
+                int IdJornada = rsPA.getInt("IdTipoJornada");
+
+                Date FechaInicio = rsPA.getDate("FechaInicio");
+                Date FechaFinal = rsPA.getDate("FechaFinal");
+                Date FechaPago = rsPA.getDate("FechaPago");
+                int IdTipoPlanilla = rsPA.getInt("IdTipoPlanilla");
+
+                //se construye el objeto.
+                Planilla planilla = new Planilla(ID, IdJornada, FechaInicio, FechaFinal, FechaPago, IdTipoPlanilla);
+
+                listaPlanilla.add(planilla);
+            }
+
+            rsPA.close(); //se cierra el ResultSet.
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+
         return listaPlanilla;
     }
 }

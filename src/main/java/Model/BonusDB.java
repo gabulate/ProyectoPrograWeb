@@ -21,6 +21,21 @@ public class BonusDB {
         accesoDatos.setDbConn(conn);
     }
 
+    public void Insertar(Bonus bonus) throws SNMPExceptions, SQLException {
+        String strSQL = "";
+
+        try {
+            strSQL = String.format("INSERT INTO Bonus VALUES ('%s', %f, %d)",
+                    bonus.Detalle, bonus.Total, bonus.IdDetallePlanilla);
+            accesoDatos.ejecutaSQL(strSQL);
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
+
     public LinkedList<Bonus> getFromIdDetallePlanilla(int IdDetallePlanilla) throws SNMPExceptions, SQLException {
         String select = "SELECT * FROM Bonus WHERE IdDetallePlanilla = " + IdDetallePlanilla;
 

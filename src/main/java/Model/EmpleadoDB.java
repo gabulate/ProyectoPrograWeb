@@ -26,8 +26,8 @@ public class EmpleadoDB {
         String strSQL = "";
 
         try {
-            strSQL = String.format("INSERT INTO Empleado VALUES ('%s', %d, %f, '%s')",
-                    empleado.Nombre, empleado.IdTipoJornada, empleado.Salario, empleado.Activo);
+            strSQL = String.format("INSERT INTO Empleado VALUES ('%s', %d, %f, '%s', '%s', '%s')",
+                    empleado.Nombre, empleado.IdTipoJornada, empleado.Salario, empleado.Activo, empleado.Cedula, empleado.Telefono);
 
             accesoDatos.ejecutaSQL(strSQL);
 
@@ -43,8 +43,9 @@ public class EmpleadoDB {
 
         try {
 
-            strSQL = String.format("UPDATE Empleado SET Nombre = '%s', IdTipoJornada = %d, Salario = %f, Activo = '%s' WHERE ID = %d",
-                    empleado.Nombre, empleado.IdTipoJornada, empleado.Salario, empleado.Activo, empleado.ID);
+            strSQL = String.format("UPDATE Empleado SET Nombre = '%s', IdTipoJornada = %d, Salario = %f, Activo = '%s',"
+                    + "Cedula = '%s', Telefono = '%s' WHERE ID = %d",
+                    empleado.Nombre, empleado.IdTipoJornada, empleado.Salario, empleado.Activo, empleado.Cedula, empleado.Telefono, empleado.ID);
 
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);
@@ -75,9 +76,11 @@ public class EmpleadoDB {
                 int IdTipoJornada = rsPA.getInt("IdTipoJornada");
                 float Salario = rsPA.getFloat("Salario");
                 boolean Activo = rsPA.getBoolean("Activo");
+                String Cedula = rsPA.getString("Cedula");
+                String Telefono = rsPA.getString("Telefono");
 
                 //se construye el objeto.
-                Empleado empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario, Activo);
+                Empleado empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario, Activo, Cedula, Telefono);
 
                 lista.add(empleado);
             }
@@ -92,7 +95,7 @@ public class EmpleadoDB {
         }
         return lista;
     }
-    
+
     public Empleado getByID(int id) throws SNMPExceptions, SQLException {
         String select = "SELECT * FROM Empleado WHERE ID =" + id;
 
@@ -111,8 +114,11 @@ public class EmpleadoDB {
                 int IdTipoJornada = rsPA.getInt("IdTipoJornada");
                 float Salario = rsPA.getFloat("Salario");
                 boolean Activo = rsPA.getBoolean("Activo");
+                String Cedula = rsPA.getString("Cedula");
+                String Telefono = rsPA.getString("Telefono");
 
-                empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario, Activo);
+                //se construye el objeto.
+                empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario, Activo, Cedula, Telefono);
             }
 
             //se construye el objeto.
@@ -125,5 +131,45 @@ public class EmpleadoDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         }
         return empleado;
+    }
+
+    public LinkedList<Empleado> getByJornada(int idJornada) throws SNMPExceptions {
+        String select = "SELECT * FROM Empleado WHERE IdTipoJornada =" + idJornada;
+
+        LinkedList<Empleado> lista = new LinkedList<>();
+
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+
+            //se llama el array con los proyectos
+            while (rsPA.next()) {
+
+                int ID = rsPA.getInt("ID");
+                String Nombre = rsPA.getString("Nombre");
+                int IdTipoJornada = rsPA.getInt("IdTipoJornada");
+                float Salario = rsPA.getFloat("Salario");
+                boolean Activo = rsPA.getBoolean("Activo");
+                String Cedula = rsPA.getString("Cedula");
+                String Telefono = rsPA.getString("Telefono");
+
+                //se construye el objeto.
+                Empleado empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario, Activo, Cedula, Telefono);
+
+                lista.add(empleado);
+            }
+
+            rsPA.close(); //se cierra el ResultSet.
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+        return lista;
     }
 }

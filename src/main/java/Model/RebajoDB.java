@@ -20,6 +20,21 @@ public class RebajoDB {
         accesoDatos = new AccesoDatos();
         accesoDatos.setDbConn(conn);
     }
+    
+    public void Insertar(Rebajo rebajo) throws SNMPExceptions, SQLException {
+        String strSQL = "";
+
+        try {
+            strSQL = String.format("INSERT INTO Rebajo VALUES (%d, '%s', %f)",
+                    rebajo.IdDetallePlanilla, rebajo.Detalle, rebajo.Total);
+            accesoDatos.ejecutaSQL(strSQL);
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
 
     public LinkedList<Rebajo> getFromIdDetallePlanilla(int IdDetallePlanilla) throws SNMPExceptions, SQLException {
         String select = "SELECT * FROM Rebajo WHERE IdDetallePlanilla = " + IdDetallePlanilla;

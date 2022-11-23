@@ -11,25 +11,20 @@
         <h:form>
 
             <div align="center" class="datagrid">
-                
-                <div class="pablo">
-                        <h3>Detalle Planilla</h3>
+                <div align="center" >
+                    <button class="button"><a href="#{request.contextPath}//faces//ListaPlanillas.xhtml">Regresar a Lista de Planillas</a></button>
+
                 </div>
-                
-                
-                <h:dataTable value="#{beanListaPlanilla.listaDetallePlanilla}" var="detalle" class="tabla">
+                <div class="pablo">
+                    <h3>Detalle Planilla</h3>
+                </div>
+
+                <h:dataTable value="#{beanPlanillas.listaDetallePlanilla}" var="detalle" class="tabla">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Empleado"></h:outputText>
                         </f:facet>
-                        <h:outputText value="#{detalle.idEmpleado}"></h:outputText>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Detalle"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{detalle.detalle}"></h:outputText>
+                        <h:outputText value="#{detalle.empleado}"></h:outputText>
                     </h:column>
 
                     <h:column>
@@ -59,15 +54,13 @@
                         </f:facet>
                         <h:outputText value="#{detalle.salarioNeto}"></h:outputText>
                     </h:column>
-                <br/>
-                <br/>
+                    <br/>
+                    <br/>
                 </h:dataTable>
+
             </div>
-            <div align="center" >
-                <button><a href="#{request.contextPath}//faces//ListaPlanillas.xhtml">Regresar a Lista de Planillas</a></button>
-                
-            </div>
-            
+
+
         </h:form>
     </body>
 </html>

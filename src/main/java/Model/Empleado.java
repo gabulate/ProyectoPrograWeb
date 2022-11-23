@@ -13,17 +13,37 @@ public class Empleado {
     int IdTipoJornada;
     float Salario;
     boolean Activo;
+    String Cedula;
+    String Telefono;
     
     String jornada;
 
-    public Empleado(int ID, String Nombre, int IdTipoJornada, float Salario, boolean Activo) throws SNMPExceptions, SQLException {
+    public Empleado(int ID, String Nombre, int IdTipoJornada, float Salario, boolean Activo, String Cedula, String Telefono) throws SNMPExceptions, SQLException {
         this.ID = ID;
         this.Nombre = Nombre;
         this.IdTipoJornada = IdTipoJornada;
         this.Salario = Salario;
         this.Activo = Activo;
+        this.Cedula = Cedula;
+        this.Telefono = Telefono;
         
         jornada = new TipoJornadaDB().getByID(IdTipoJornada).Nombre;
+    }
+
+    public String getCedula() {
+        return Cedula;
+    }
+
+    public void setCedula(String Cedula) {
+        this.Cedula = Cedula;
+    }
+
+    public String getTelefono() {
+        return Telefono;
+    }
+
+    public void setTelefono(String Telefono) {
+        this.Telefono = Telefono;
     }
 
     public int getID() {

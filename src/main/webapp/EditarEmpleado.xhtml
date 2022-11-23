@@ -13,11 +13,21 @@
             <div align="center" class="tablaEmpleado">
                 <div class="emple"><h3>Empleado:</h3></div>
 
+                <h:outputText style="margin-left: 22px;" value="Cédula:"></h:outputText>
+                <h:inputText class="textNombre" value="#{beanEmpleados.empleado.cedula}"></h:inputText>
+                <br></br>
+                <br></br>
+                
                 <h:outputText style="margin-left: 22px;" value="Nombre:"></h:outputText>
                 <h:inputText class="textNombre" value="#{beanEmpleados.empleado.nombre}"></h:inputText>
                 <br></br>
                 <br></br>
 
+                <h:outputText style="margin-left: 22px;" value="Teléfono:"></h:outputText>
+                <h:inputText class="textNombre" value="#{beanEmpleados.empleado.telefono}"></h:inputText>
+                <br></br>
+                <br></br>
+                
                 <h:outputText value="Tipo de Jornada:"></h:outputText>
                 <h:selectOneMenu value="#{beanEmpleados.empleado.jornada}">
                     <f:selectItems value="#{beanEmpleados.listaJornadas}"/>
