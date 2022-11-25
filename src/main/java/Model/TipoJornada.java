@@ -5,7 +5,7 @@ package Model;
  * @author Gabri
  */
 public class TipoJornada {
-    int ID;
+    int ID = 0;
     String Nombre;
     float horas;
 
@@ -13,6 +13,9 @@ public class TipoJornada {
         this.ID = ID;
         this.Nombre = Nombre;
         this.horas = horas;
+    }
+
+    public TipoJornada() {
     }
 
     public int getID() {

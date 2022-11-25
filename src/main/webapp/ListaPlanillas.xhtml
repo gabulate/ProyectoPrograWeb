@@ -16,11 +16,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     </head>
     <body>
         <h:form>
-            <h:outputText value="#{beanPlanillas.listaPlanillas.size()}"></h:outputText>
-            <div align="center" class="datagrid">
-                <br/><br/>
-                <a href="Principal.xhtml">Volver al Inicio</a>
-                <br/><br/>
+            <div class="center">
+                <button class="button"><a href="Principal.xhtml">Volver al Inicio</a></button>
+                <h:commandButton class="button" value="Generar Nueva Planilla" actionListener="#{beanPlanillas.AbrirPaginaCreacion()}"></h:commandButton>
+            </div>
+
+
+            <div align="center" class="tablaMantenimiento">
                 <h:dataTable value="#{beanPlanillas.listaPlanillas}" var="planilla" class="tabla">
                     <h:column>
                         <f:facet name="header">
@@ -28,7 +30,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         </f:facet>
                         <h:outputText value="#{planilla.ID}"></h:outputText>
                     </h:column>
-                    
+
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Fecha Inicio"></h:outputText>
@@ -49,14 +51,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         </f:facet>
                         <h:outputText value="#{planilla.tipo}"></h:outputText>
                     </h:column>  
-                    
+
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Jornada"></h:outputText>
                         </f:facet>
                         <h:outputText value="#{planilla.jornada}"></h:outputText>
                     </h:column>  
-                    
+
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Fecha de Pago"></h:outputText>
@@ -66,14 +68,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Acciones"></h:outputText>
+                            <h:outputText value="✍"></h:outputText>
                         </f:facet>
                         <h:commandLink value="Ver Planilla" actionListener="#{beanPlanillas.MostrarDetalle(planilla)}" ></h:commandLink>
                     </h:column>
 
                 </h:dataTable>
 
-                <h:commandButton class="button" value="Generar Nueva Planilla" actionListener="#{beanPlanillas.AbrirPaginaCreacion()}"></h:commandButton>
 
                 <h:outputText value="#{beanListaPlanilla.mensaje}" style="color: red"></h:outputText>
             </div>

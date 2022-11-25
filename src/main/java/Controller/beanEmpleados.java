@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
  * @author Gabri
  */
 public class beanEmpleados {
+
     //Lista de los empleados registrados
     private LinkedList<Empleado> listaEmpleados = new LinkedList<>();
 
@@ -141,9 +142,11 @@ public class beanEmpleados {
         return listaEmpleados;
     }
 
-    public void AnadirEmpleado() throws SNMPExceptions, SQLException {
+    //Crea un empleado y le añade la deducción de la ccss y la renta
+    public void AnadirEmpleado() throws SNMPExceptions, SQLException, IOException {
         new EmpleadoDB().Insertar(new Empleado(0, "Empleado Nuevo", 1, 0, true, "", "8888-8888"));
         MostrarListaEmpleados();
+        Editar(new EmpleadoDB().getUltima());
     }
 
     public void AnadirDeduccion() {
@@ -211,5 +214,4 @@ public class beanEmpleados {
     public void setListaJornadas(LinkedList<TipoJornada> listaJornadas) {
         this.listaJornadas = listaJornadas;
     }
-
 }

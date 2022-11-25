@@ -10,24 +10,31 @@
     </head>
     <body>
         <h:form>
-            <div align="center" class="tablaEmpleado">
-                <div class="emple"><h3>Empleado:</h3></div>
+            <div class="center">
+                <h:commandButton class="button" value="Guardar" actionListener="#{beanEmpleados.Guardar()}"></h:commandButton>
+                <h:commandButton class="button" value="Deshacer cambios" actionListener="#{beanEmpleados.Deshacer()}"></h:commandButton>
+                <h:commandButton class="button" value="Salir" actionListener="#{beanEmpleados.Cancelar()}"></h:commandButton>
+            </div>
+            <div align="center" class="tablaMantenimiento">
+                <div class="tituloTabla">
+                    <h3>Empleado:</h3>
+                </div>
 
-                <h:outputText style="margin-left: 22px;" value="Cédula:"></h:outputText>
-                <h:inputText class="textNombre" value="#{beanEmpleados.empleado.cedula}"></h:inputText>
-                <br></br>
-                <br></br>
-                
-                <h:outputText style="margin-left: 22px;" value="Nombre:"></h:outputText>
-                <h:inputText class="textNombre" value="#{beanEmpleados.empleado.nombre}"></h:inputText>
+                <h:outputText class="textoLabel" value="Cédula:"></h:outputText>
+                <h:inputText class="textoInput" value="#{beanEmpleados.empleado.cedula}"></h:inputText>
                 <br></br>
                 <br></br>
 
-                <h:outputText style="margin-left: 22px;" value="Teléfono:"></h:outputText>
-                <h:inputText class="textNombre" value="#{beanEmpleados.empleado.telefono}"></h:inputText>
+                <h:outputText class="textoLabel" value="Nombre:"></h:outputText>
+                <h:inputText class="textoInput" value="#{beanEmpleados.empleado.nombre}"></h:inputText>
                 <br></br>
                 <br></br>
-                
+
+                <h:outputText class="textoLabel" value="Teléfono:"></h:outputText>
+                <h:inputText class="textoInput" value="#{beanEmpleados.empleado.telefono}"></h:inputText>
+                <br></br>
+                <br></br>
+
                 <h:outputText value="Tipo de Jornada:"></h:outputText>
                 <h:selectOneMenu value="#{beanEmpleados.empleado.jornada}">
                     <f:selectItems value="#{beanEmpleados.listaJornadas}"/>
@@ -35,8 +42,8 @@
                 <br></br>
                 <br></br>
 
-                <h:outputText style="margin-left: 22px;" value="Salario:"></h:outputText>
-                <h:inputText class="textSalario" value="#{beanEmpleados.empleado.salario}"></h:inputText>
+                <h:outputText  value="Salario:"></h:outputText>
+                <h:inputText class="textoInput" value="#{beanEmpleados.empleado.salario}"></h:inputText>
                 <br></br>
                 <br></br>
 
@@ -44,20 +51,17 @@
                 <h:selectBooleanCheckbox value="#{beanEmpleados.empleado.activo}"></h:selectBooleanCheckbox>
                 <br></br>
                 <br></br>
-                <h:commandButton class="button" value="Guardar" actionListener="#{beanEmpleados.Guardar()}"></h:commandButton>
-                <h:commandButton class="button" value="Deshacer cambios" actionListener="#{beanEmpleados.Deshacer()}"></h:commandButton>
-                <h:commandButton class="button" value="Salir" actionListener="#{beanEmpleados.Cancelar()}"></h:commandButton>
-                <br></br>
-                <br></br>
+
             </div>
             <br></br>
             <!-- Lista Cobros -->
-            <div align="center" class="tablaDeduccion">
-                <div align="center" class="deduc">
+            <div align="center" class="tablaMantenimiento">
+                <div align="center" class="tituloTabla">
                     <h3>Deducciones:</h3>
+                    <h6>(Los cobros de CCSS y La renta se añaden automáticamente al generar una planilla)</h6>
                 </div>
 
-                <h:dataTable value="#{beanEmpleados.listaDeducciones}" var="deduccion" class="tablaDedu">
+                <h:dataTable value="#{beanEmpleados.listaDeducciones}" var="deduccion" class="dTableMantenimiento">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Detalle"></h:outputText>
@@ -89,13 +93,14 @@
                 <br></br>
             </div>
             <br></br>
-            <div align="center" class="tablaBeneficio">
+
+            <div align="center" class="tablaMantenimiento">
                 <!-- Lista Beneficios -->
-                <div class="benef">
+                <div class="tituloTabla">
                     <h3>Beneficios:</h3>
                 </div>
 
-                <h:dataTable value="#{beanEmpleados.listaBeneficios}" var="beneficio" class="tablaBenef">
+                <h:dataTable value="#{beanEmpleados.listaBeneficios}" var="beneficio" class="dTableMantenimiento">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Detalle"></h:outputText>

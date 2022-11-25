@@ -15,10 +15,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     </head>
     <body>
         <h:form>
+            <div class="center">
+                <h:commandButton class="button" value="Añadir Empleado" actionListener="#{beanEmpleados.AnadirEmpleado()}"></h:commandButton>
+                <button class="button"><a href="Principal.xhtml">Volver al Inicio</a></button>
+            </div>
+
             <div align="center" class="datagrid">
-                <br/><br/>
-                <a href="Principal.xhtml">Volver al Inicio</a>
-                <br/><br/>
                 <h:dataTable value="#{beanEmpleados.listaEmpleados}" var="empleado" class="tabla">
                     <h:column>
                         <f:facet name="header">
@@ -26,7 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         </f:facet>
                         <h:outputText value="#{empleado.cedula}"></h:outputText>
                     </h:column>
-                    
+
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Nombre"></h:outputText>
@@ -40,7 +42,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         </f:facet>
                         <h:outputText value="#{empleado.jornada}"></h:outputText>
                     </h:column>
-                    
+
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Teléfono"></h:outputText>
@@ -53,11 +55,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                             <h:outputText value="Salario"></h:outputText>
                         </f:facet>
                         <h:outputText value="#{empleado.salario}"></h:outputText>
-                    </h:column>     
+                    </h:column>
 
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Acciones"></h:outputText>
+                            <h:outputText value="Estado"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{empleado.activo ? 'Activo' : 'Inactivo'}"></h:outputText>
+                    </h:column>  
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="✍"></h:outputText>
                         </f:facet>
                         <h:commandLink value="Editar" actionListener="#{beanEmpleados.Editar(empleado)}" ></h:commandLink>
                     </h:column>
@@ -66,7 +75,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <h:outputText value="#{beanListaPlanilla.mensaje}" style="color: red"></h:outputText>
 
-                <h:commandButton class="button" value="Añadir Empleado" actionListener="#{beanEmpleados.AnadirEmpleado()}"></h:commandButton>
+
 
             </div>
 

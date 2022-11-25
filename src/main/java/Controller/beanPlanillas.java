@@ -45,33 +45,22 @@ public class beanPlanillas {
     private Date FechaPago = new Date();
 
     private String jornada = "";
+    int idJornada = 0;
     private LinkedList<TipoJornada> listaJornadas;
     private LinkedList<Empleado> ListaEmpleados = new LinkedList<>();
 
     private String tipo = "";
+    int idTipo = 0;
     private LinkedList<TipoPlanilla> listaTipos;
+
+    private float CCSS = 10;
+    private boolean calccss = true;
+    private boolean calrenta = true;
     ///////////////////////////////////////////////////
     private String mensaje = "";
 
     //Genera la planilla y la guarda en la base de datos
     public void Generar() throws SNMPExceptions, SQLException, IOException {
-        int idJornada = 0;
-
-        //Obtiene el id de la jornada seleccionada
-        for (int i = 0; i < listaJornadas.size(); i++) {
-            if (listaJornadas.get(i).getNombre().equals(jornada)) {
-                idJornada = listaJornadas.get(i).getID();
-            }
-        }
-
-        int idTipo = 0;
-
-        //Obtiene el id del tipo de planilla seleccionado
-        for (int i = 0; i < listaTipos.size(); i++) {
-            if (listaTipos.get(i).getNombre().equals(tipo)) {
-                idTipo = listaTipos.get(i).getID();
-            }
-        }
 
         //Se tiene que convertir de util.date a sql.date
         planilla = new Planilla(0, idJornada,
@@ -84,7 +73,7 @@ public class beanPlanillas {
         CrearDetallesPlanilla();
     }
 
-    private void CrearDetallesPlanilla() throws SNMPExceptions, SQLException, IOException{
+    private void CrearDetallesPlanilla() throws SNMPExceptions, SQLException, IOException {
         planilla = new PlanillaDB().getUltima();
         ListaEmpleados = new EmpleadoDB().getByJornada(planilla.getIdTipoJornada());
 
@@ -96,26 +85,10 @@ public class beanPlanillas {
             }
         }
 
-        //Obtiene Los objetos de tipo jornada y tipo Planilla///////////////////////////
-        int idJornada = 0;
-
-        //Obtiene el id de la jornada seleccionada
-        for (int i = 0; i < listaJornadas.size(); i++) {
-            if (listaJornadas.get(i).getNombre().equals(jornada)) {
-                idJornada = listaJornadas.get(i).getID();
-            }
-        }
-
-        int idTipo = 0;
-        //Obtiene el id del tipo de planilla seleccionado
-        for (int i = 0; i < listaTipos.size(); i++) {
-            if (listaTipos.get(i).getNombre().equals(tipo)) {
-                idTipo = listaTipos.get(i).getID();
-            }
-        }
-
         TipoJornada tipoJornada = new TipoJornadaDB().getByID(idJornada);
         TipoPlanilla tipoPlanilla = new TipoPlanillaDB().getByID(idTipo);
+
+        CCSS = 15;
 
         //Crea los Objetos de DetallePlanilla///////////////////////////////////////////
         for (Empleado e : ListaEmpleados) {
@@ -125,53 +98,65 @@ public class beanPlanillas {
             float HorasTrabajadas = tipoJornada.getHoras() * tipoPlanilla.getDias();
             float SalarioBruto = (e.getSalario() * tipoPlanilla.getDias()) / 30;
             float HorasExtra = 0;
-            
+
             //Inserta el detalle planilla sin calcular el salario bruto todavía
             new DetallePlanillaDB().Insertar(new DetallePlanilla(0, IdEmpleado, IdPlanilla, HorasTrabajadas, SalarioBruto, HorasExtra, 0));
-            
+
             //Obtiene el detalleplanilla recién creado
             DetallePlanilla detalle = new DetallePlanillaDB().getUltima();
-            
+
             //Obtiene las listas de deducciones y beneficios
             LinkedList<Deduccion> deducciones = new DeduccionDB().getFromIdEmpleado(e.getID());
             LinkedList<Beneficio> beneficios = new BeneficioDB().getFromIdEmpleado(e.getID());
 
-            
             float SalarioNeto = SalarioBruto;
-            
+
             //Calculo del salario neto del empleado///////////////////////////////////////////
-            
-            for(Deduccion d : deducciones){
+            //Cálculo del impuesto de CCSS y renta////
+            if (calccss) {
+                float total = SalarioBruto * (CCSS / 100);
+                Rebajo r = new Rebajo(0, detalle.getID(), "CCSS", total);
+                new RebajoDB().Insertar(r);
+            }
+
+            if (calrenta) {
+                //HACER CALCULO IMPUESTO DE RENTA
+                //float total = SalarioBruto * (CCSS / 100);
+                //Rebajo r = new Rebajo(0, detalle.getID(), "Impuesto sobre la renta", total);
+                //new RebajoDB().Insertar(r);
+            }
+
+            //Deducciones y Beneficios///////////////
+            for (Deduccion d : deducciones) {
                 float total = 0;
                 //Si el rebajo es una cifra fija se le resta directamente, si no
                 //Se calcula el porcentaje por rebajar
-                if(d.isFijo()){
+                if (d.isFijo()) {
                     total = d.getCantidad();
                     SalarioNeto -= d.getCantidad();
-                    
-                } else{
+
+                } else {
                     total = (SalarioBruto * d.getCantidad()) / 100;
                     SalarioNeto -= (SalarioBruto * d.getCantidad()) / 100;
                 }
-                
+
                 //Crea un objeto rebajo y lo guarda en la base de datos
                 Rebajo r = new Rebajo(0, detalle.getID(), d.getDetalle(), total);
                 new RebajoDB().Insertar(r);
             }
-            
+
             //Lo mismo pero con los beneficios se suma 
-            for(Beneficio b : beneficios){
+            for (Beneficio b : beneficios) {
                 float total = 0;
-                if(b.isFijo()){
+                if (b.isFijo()) {
                     total = b.getCantidad();
                     SalarioNeto += b.getCantidad();
-                    
-                } else{
+
+                } else {
                     total = (SalarioBruto * b.getCantidad()) / 100;
                     SalarioNeto += (SalarioBruto * b.getCantidad()) / 100;
                 }
-                
-                
+
                 Bonus bon = new Bonus(0, detalle.getID(), b.getDetalle(), total);
                 new BonusDB().Insertar(bon);
             }
@@ -180,25 +165,20 @@ public class beanPlanillas {
             detalle.setSalarioNeto(SalarioNeto);
             new DetallePlanillaDB().Actualizar(detalle);
         }//Fin de foreach de empleados
-        
+
         //Finalmente, ya creada la planilla, cada objeto detallePlanilla y
         //todos los objetos de rebajos y bonus, se vuelve a la página de lista planillas
         FacesContext.getCurrentInstance().getExternalContext().redirect("ListaPlanillas.xhtml");
     }
 
     //Cuando se obtiene la jornada trae a los empleados con la jornada elegida
-    public LinkedList<TipoJornada> getListaJornadas() throws SNMPExceptions, SNMPExceptions, SQLException {
+    public LinkedList<TipoJornada> getListaJornadas() throws SNMPExceptions, SQLException {
         listaJornadas = new TipoJornadaDB().moTodo();
+        CargarListaUsuarios();
+        return listaJornadas;
+    }
 
-        int idJornada = 0;
-
-        //Obtiene el id de la jornada seleccionada
-        for (int i = 0; i < listaJornadas.size(); i++) {
-            if (listaJornadas.get(i).getNombre().equals(jornada)) {
-                idJornada = listaJornadas.get(i).getID();
-            }
-        }
-
+    private void CargarListaUsuarios() throws SNMPExceptions {
         //Obtiene la lista de empleados con la jornada seleccionada
         ListaEmpleados = new EmpleadoDB().getByJornada(idJornada);
 
@@ -209,19 +189,18 @@ public class beanPlanillas {
                 ListaEmpleados.remove(e);
             }
         }
-
-        return listaJornadas;
     }
 
     //Pasa a la página de creación de planilla
     public void AbrirPaginaCreacion() throws IOException {
         try {
-
+            FacesContext.getCurrentInstance().getExternalContext().redirect("CrearPlanilla.xhtml");
+            setJornada(getListaJornadas().get(0).getNombre());
+            CargarListaUsuarios();
             mensaje = "";
         } catch (Exception e) {
             mensaje = "Ha ocurrido un error al conectar con la base de datos";
         }
-        FacesContext.getCurrentInstance().getExternalContext().redirect("CrearPlanilla.xhtml");
     }
 
     //Pasa a la página de detalle con la lista de detalles de la planilla seleccionada
@@ -314,6 +293,14 @@ public class beanPlanillas {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+
+        //Obtiene el id del tipo de planilla seleccionado
+        for (int i = 0; i < listaTipos.size(); i++) {
+            if (listaTipos.get(i).getNombre().equals(tipo)) {
+                idTipo = listaTipos.get(i).getID();
+                break;
+            }
+        }
     }
 
     public LinkedList<TipoPlanilla> getListaTipos() throws SNMPExceptions, SNMPExceptions, SQLException {
@@ -327,5 +314,36 @@ public class beanPlanillas {
 
     public void setJornada(String jornada) throws SNMPExceptions, SNMPExceptions {
         this.jornada = jornada;
+        //Obtiene el id de la jornada seleccionada
+        for (int i = 0; i < listaJornadas.size(); i++) {
+            if (listaJornadas.get(i).getNombre().equals(jornada)) {
+                idJornada = listaJornadas.get(i).getID();
+                break;
+            }
+        }
+    }
+
+    public boolean isCalccss() {
+        return calccss;
+    }
+
+    public void setCalccss(boolean calccss) {
+        this.calccss = calccss;
+    }
+
+    public boolean isCalrenta() {
+        return calrenta;
+    }
+
+    public void setCalrenta(boolean calrenta) {
+        this.calrenta = calrenta;
+    }
+
+    public float getCCSS() {
+        return CCSS;
+    }
+
+    public void setCCSS(float CCSS) {
+        this.CCSS = CCSS;
     }
 }

@@ -56,8 +56,47 @@ public class EmpleadoDB {
         }
     }
 
+    public Empleado getUltima() throws SNMPExceptions, SQLException {
+        String select = "SELECT TOP 1 *  FROM Empleado ORDER BY ID desc";
+
+        Empleado empleado = null;
+
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+
+            //se llama el array con los proyectos
+            while (rsPA.next()) {
+
+                int ID = rsPA.getInt("ID");
+                String Nombre = rsPA.getString("Nombre");
+                int IdTipoJornada = rsPA.getInt("IdTipoJornada");
+                float Salario = rsPA.getFloat("Salario");
+                boolean Activo = rsPA.getBoolean("Activo");
+                String Cedula = rsPA.getString("Cedula");
+                String Telefono = rsPA.getString("Telefono");
+
+                //se construye el objeto.
+                empleado = new Empleado(ID, Nombre, IdTipoJornada, Salario, Activo, Cedula, Telefono);
+            }
+
+            rsPA.close(); //se cierra el ResultSet.
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+
+        return empleado;
+    }
+
     public LinkedList<Empleado> moTodo() throws SNMPExceptions, SQLException {
-        String select = "SELECT * FROM Empleado";
+        String select = "SELECT * FROM Empleado order by ID desc";
 
         LinkedList<Empleado> lista = new LinkedList<>();
 

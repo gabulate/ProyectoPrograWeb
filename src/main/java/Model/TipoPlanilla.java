@@ -5,7 +5,7 @@ package Model;
  * @author Gabri
  */
 public class TipoPlanilla {
-    int ID;
+    int ID = 0;
     String Nombre;
     int dias;
 
@@ -13,6 +13,9 @@ public class TipoPlanilla {
         this.ID = ID;
         this.Nombre = Nombre;
         this.dias = dias;
+    }
+
+    public TipoPlanilla() {
     }
 
     @Override

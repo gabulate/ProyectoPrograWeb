@@ -38,8 +38,8 @@ public class PlanillaDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         }
     }
-    
-     public Planilla getUltima() throws SNMPExceptions, SQLException {
+
+    public Planilla getUltima() throws SNMPExceptions, SQLException {
         String select = "SELECT TOP 1 *  FROM Planilla ORDER BY ID desc";
 
         Planilla planilla = null;
