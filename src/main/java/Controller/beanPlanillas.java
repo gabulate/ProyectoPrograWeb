@@ -1,24 +1,25 @@
 package Controller;
 
 import DAO.SNMPExceptions;
-import Model.Beneficio;
-import Model.BeneficioDB;
-import Model.Bonus;
-import Model.BonusDB;
-import Model.Deduccion;
-import Model.DeduccionDB;
-import Model.DetallePlanilla;
-import Model.DetallePlanillaDB;
-import Model.Empleado;
-import Model.EmpleadoDB;
-import Model.Planilla;
-import Model.PlanillaDB;
-import Model.Rebajo;
-import Model.RebajoDB;
-import Model.TipoJornada;
-import Model.TipoJornadaDB;
-import Model.TipoPlanilla;
-import Model.TipoPlanillaDB;
+import Model.Entidades.Beneficio;
+import Model.ClasesDB.BeneficioDB;
+import Model.Entidades.Bonus;
+import Model.ClasesDB.BonusDB;
+import Model.Calculos;
+import Model.Entidades.Deduccion;
+import Model.ClasesDB.DeduccionDB;
+import Model.Entidades.DetallePlanilla;
+import Model.ClasesDB.DetallePlanillaDB;
+import Model.Entidades.Empleado;
+import Model.ClasesDB.EmpleadoDB;
+import Model.Entidades.Planilla;
+import Model.ClasesDB.PlanillaDB;
+import Model.Entidades.Rebajo;
+import Model.ClasesDB.RebajoDB;
+import Model.Entidades.TipoJornada;
+import Model.ClasesDB.TipoJornadaDB;
+import Model.Entidades.TipoPlanilla;
+import Model.ClasesDB.TipoPlanillaDB;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -78,12 +79,7 @@ public class beanPlanillas {
         ListaEmpleados = new EmpleadoDB().getByJornada(planilla.getIdTipoJornada());
 
         //Elimina los usuarios marcados como desactivados
-        for (Iterator<Empleado> it = ListaEmpleados.iterator(); it.hasNext();) {
-            Empleado e = it.next();
-            if (!e.isActivo()) {
-                ListaEmpleados.remove(e);
-            }
-        }
+        ListaEmpleados.removeIf(x -> !x.isActivo());
 
         TipoJornada tipoJornada = new TipoJornadaDB().getByID(idJornada);
         TipoPlanilla tipoPlanilla = new TipoPlanillaDB().getByID(idTipo);
@@ -116,14 +112,16 @@ public class beanPlanillas {
             if (calccss) {
                 float total = SalarioBruto * (CCSS / 100);
                 Rebajo r = new Rebajo(0, detalle.getID(), "CCSS", total);
+                SalarioNeto -= r.getTotal();
                 new RebajoDB().Insertar(r);
             }
 
+            //Calculo del impuesto sobre la renta
             if (calrenta) {
-                //HACER CALCULO IMPUESTO DE RENTA
-                //float total = SalarioBruto * (CCSS / 100);
-                //Rebajo r = new Rebajo(0, detalle.getID(), "Impuesto sobre la renta", total);
-                //new RebajoDB().Insertar(r);
+                //Llama al método calcularRenta() de la clase Calculos porque el cálculo es muy largo y no lo quería poner aquí
+                Rebajo r = new Rebajo(0, detalle.getID(), "Impuesto sobre la renta", Calculos.CalcularRenta(e));
+                SalarioNeto -= r.getTotal();
+                new RebajoDB().Insertar(r);
             }
 
             //Deducciones y Beneficios///////////////
@@ -183,12 +181,7 @@ public class beanPlanillas {
         ListaEmpleados = new EmpleadoDB().getByJornada(idJornada);
 
         //Elimina los usuarios marcados como desactivados
-        for (Iterator<Empleado> it = ListaEmpleados.iterator(); it.hasNext();) {
-            Empleado e = it.next();
-            if (!e.isActivo()) {
-                ListaEmpleados.remove(e);
-            }
-        }
+        ListaEmpleados.removeIf(x -> !x.isActivo());
     }
 
     //Pasa a la página de creación de planilla

@@ -4,12 +4,50 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      import="java.util.LinkedList">
     <head>
-        <title>Falta de todo</title>
+        <title>Administrar Usuarios</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/mantenimiento.css"></link>
     </head>
     <body>
-        <div>ya casi</div>
+        <h:form>
+            <div class="center">
+                <h:commandButton class="button" value="Añadir Usuario" actionListener="#{beanUsuarios.AnadirUsuario()}"></h:commandButton>
+                <button class="button"><a href="Principal.xhtml">Volver al Inicio</a></button>
+            </div>
+
+            <div align="center" class="tablaMantenimiento">
+                <h:dataTable value="#{beanUsuarios.listaUsuarios}" var="usuario" class="tabla">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre de Usuario"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{usuario.nombre}"></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Rol"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{usuario.rol}"></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="✍"></h:outputText>
+                        </f:facet>
+                        <h:commandLink value="Editar" actionListener="#{beanUsuarios.Editar(usuario, true)}" ></h:commandLink>
+                    </h:column>
+
+                </h:dataTable>
+
+                <h:outputText value="#{beanUsuarios.mensaje}" style="color: red"></h:outputText>
+            </div>
+
+        </h:form>
     </body>
 </html>

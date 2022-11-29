@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <button class="button"><a href="Principal.xhtml">Volver al Inicio</a></button>
             </div>
 
-            <div align="center" class="datagrid">
+            <div align="center" class="tablaMantenimiento">
                 <h:dataTable value="#{beanEmpleados.listaEmpleados}" var="empleado" class="tabla">
                     <h:column>
                         <f:facet name="header">
@@ -73,9 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 </h:dataTable>
 
-                <h:outputText value="#{beanListaPlanilla.mensaje}" style="color: red"></h:outputText>
-
-
+                <h:outputText value="#{beanEmpleados.mensaje}" style="color: red"></h:outputText>
 
             </div>
 

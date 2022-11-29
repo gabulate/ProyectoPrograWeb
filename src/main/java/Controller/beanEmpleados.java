@@ -1,14 +1,14 @@
 package Controller;
 
 import DAO.SNMPExceptions;
-import Model.Beneficio;
-import Model.BeneficioDB;
-import Model.Deduccion;
-import Model.DeduccionDB;
-import Model.Empleado;
-import Model.EmpleadoDB;
-import Model.TipoJornada;
-import Model.TipoJornadaDB;
+import Model.Entidades.Beneficio;
+import Model.ClasesDB.BeneficioDB;
+import Model.Entidades.Deduccion;
+import Model.ClasesDB.DeduccionDB;
+import Model.Entidades.Empleado;
+import Model.ClasesDB.EmpleadoDB;
+import Model.Entidades.TipoJornada;
+import Model.ClasesDB.TipoJornadaDB;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.LinkedList;

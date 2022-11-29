@@ -1,8 +1,8 @@
 package Controller;
 
 import DAO.SNMPExceptions;
-import Model.Usuario;
-import Model.UsuarioDB;
+import Model.Entidades.Usuario;
+import Model.ClasesDB.UsuarioDB;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.faces.context.FacesContext;
