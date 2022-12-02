@@ -64,7 +64,7 @@ public class DeduccionDB {
         String select = "SELECT * FROM Deduccion WHERE ID = " + ded.getID();
 
         try {
-            AccesoDatos accesoDatos = new AccesoDatos();
+            accesoDatos = new AccesoDatos();
 
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
 
@@ -122,7 +122,7 @@ public class DeduccionDB {
         String strSQL = "SELECT * FROM Deduccion WHERE ID = " + ded.getID();
 
         try {
-            AccesoDatos accesoDatos = new AccesoDatos();
+            accesoDatos = new AccesoDatos();
 
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(strSQL);
 
@@ -131,7 +131,7 @@ public class DeduccionDB {
                 strSQL = "DELETE FROM Deduccion WHERE ID = " + ded.getID();
                 accesoDatos.ejecutaSQL(strSQL);
             }
-            
+
             rsPA.close(); //se cierra el ResultSet.
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,

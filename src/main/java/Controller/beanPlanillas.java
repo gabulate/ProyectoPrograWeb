@@ -166,7 +166,7 @@ public class beanPlanillas {
 
         //Finalmente, ya creada la planilla, cada objeto detallePlanilla y
         //todos los objetos de rebajos y bonus, se vuelve a la página de lista planillas
-        FacesContext.getCurrentInstance().getExternalContext().redirect("ListaPlanillas.xhtml");
+        MostrarDetalle(planilla);
     }
 
     //Cuando se obtiene la jornada trae a los empleados con la jornada elegida
@@ -338,5 +338,13 @@ public class beanPlanillas {
 
     public void setCCSS(float CCSS) {
         this.CCSS = CCSS;
+    }
+
+    public Planilla getPlanilla() {
+        return planilla;
+    }
+
+    public void setPlanilla(Planilla planilla) {
+        this.planilla = planilla;
     }
 }

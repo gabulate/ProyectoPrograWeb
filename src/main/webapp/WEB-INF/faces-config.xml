@@ -44,4 +44,9 @@
         <managed-bean-class>Controller.beanUsuarios</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>beanDetalle</managed-bean-name>
+        <managed-bean-class>Controller.beanDetalle</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

@@ -27,7 +27,7 @@ public class DetallePlanillaDB {
         String strSQL = "";
 
         try {
-            strSQL = String.format("INSERT INTO DetallePlanilla VALUES (%d, %d, %f, %f, %f, %f)", 
+            strSQL = String.format("INSERT INTO DetallePlanilla VALUES (%d, %d, %f, %f, %f, %f)",
                     detalle.getIdEmpleado(), detalle.getIdPlanilla(), detalle.getHorasTrabajadas(), detalle.getSalarioBruto(),
                     detalle.getHorasExtra(), detalle.getSalarioNeto());
 
@@ -142,5 +142,46 @@ public class DetallePlanillaDB {
         } catch (Exception e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         }
+    }
+
+    public DetallePlanilla getByID(int id) throws SNMPExceptions {
+        String select = "SELECT * FROM DetallePlanilla WHERE ID = " + id;
+
+        DetallePlanilla detallePlanilla = null;
+
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+
+            //se llama el array con los proyectos
+            while (rsPA.next()) {
+
+                int ID = rsPA.getInt("ID");
+                int IdEmpleado = rsPA.getInt("IdEmpleado");
+                int IdPlanilla = rsPA.getInt("IdPlanilla");
+
+                float HorasTrabajadas = rsPA.getFloat("HorasTrabajadas");
+                float SalarioBruto = rsPA.getFloat("SalarioBruto");
+                float HorasExtra = rsPA.getFloat("HorasExtra");
+                float SalarioNeto = rsPA.getFloat("SalarioNeto");
+
+                //se construye el objeto.
+                detallePlanilla = new DetallePlanilla(ID, IdEmpleado, IdPlanilla,
+                        HorasTrabajadas, SalarioBruto, HorasExtra, SalarioNeto);
+            }
+
+            rsPA.close(); //se cierra el ResultSet.
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+
+        return detallePlanilla;
     }
 }

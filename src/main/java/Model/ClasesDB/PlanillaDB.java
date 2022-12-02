@@ -119,4 +119,43 @@ public class PlanillaDB {
 
         return listaPlanilla;
     }
+
+    public Planilla getById(int idPlanilla) throws SNMPExceptions {
+        String select = "SELECT * FROM Planilla WHERE ID = " + idPlanilla;
+
+        Planilla planilla = null;
+
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+
+            //se llama el array con los proyectos
+            while (rsPA.next()) {
+
+                int ID = rsPA.getInt("ID");
+                int IdJornada = rsPA.getInt("IdTipoJornada");
+
+                Date FechaInicio = rsPA.getDate("FechaInicio");
+                Date FechaFinal = rsPA.getDate("FechaFinal");
+                Date FechaPago = rsPA.getDate("FechaPago");
+                int IdTipoPlanilla = rsPA.getInt("IdTipoPlanilla");
+
+                //se construye el objeto.
+                planilla = new Planilla(ID, IdJornada, FechaInicio, FechaFinal, FechaPago, IdTipoPlanilla);
+            }
+
+            rsPA.close(); //se cierra el ResultSet.
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+
+        return planilla;
+    }
 }

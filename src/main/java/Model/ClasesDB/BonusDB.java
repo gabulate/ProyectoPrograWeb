@@ -71,4 +71,70 @@ public class BonusDB {
         }
         return lista;
     }
+
+    public void InsertarOActualizar(Bonus bon) throws SNMPExceptions {
+        String select = "SELECT * FROM Bonus WHERE ID = " + bon.getID();
+
+        try {
+            accesoDatos = new AccesoDatos();
+
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+
+            while (rsPA.next()) {
+                //Si entra aquí es porque sí existe un objeto con ese ID
+                Actualizar(bon);
+                rsPA.close(); //se cierra el ResultSet.
+                return;
+            }
+
+            //Si llega aquí es porque el objeto no existe y se crea
+            Insertar(bon);
+            rsPA.close(); //se cierra el ResultSet.
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
+
+    public void Eliminar(Bonus bon) throws SNMPExceptions {
+        String strSQL = "SELECT * FROM Bonus WHERE ID = " + bon.getID();
+
+        try {
+            accesoDatos = new AccesoDatos();
+
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(strSQL);
+
+            while (rsPA.next()) {
+                //Si entra aquí es porque sí existe un objeto con ese ID
+                strSQL = "DELETE FROM Bonus WHERE ID = " + bon.getID();
+                accesoDatos.ejecutaSQL(strSQL);
+            }
+
+            rsPA.close(); //se cierra el ResultSet.
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
+
+    private void Actualizar(Bonus bon) throws SNMPExceptions {
+        String strSQL = "";
+
+        try {
+
+            strSQL = String.format("UPDATE Bonus SET Detalle = '%s', Total = %f WHERE ID = %d",
+                    bon.getDetalle(), bon.getTotal(), bon.getID());
+
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL);
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
 }

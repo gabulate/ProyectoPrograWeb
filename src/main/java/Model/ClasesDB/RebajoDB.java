@@ -21,7 +21,7 @@ public class RebajoDB {
         accesoDatos = new AccesoDatos();
         accesoDatos.setDbConn(conn);
     }
-    
+
     public void Insertar(Rebajo rebajo) throws SNMPExceptions, SQLException {
         String strSQL = "";
 
@@ -44,7 +44,7 @@ public class RebajoDB {
 
         try {
             //Se intancia la clase de acceso a datos
-            AccesoDatos accesoDatos = new AccesoDatos();
+            accesoDatos = new AccesoDatos();
 
             //se ejecuta la sentencia sql
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -70,5 +70,71 @@ public class RebajoDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         }
         return lista;
+    }
+
+    public void InsertarOActualizar(Rebajo reb) throws SNMPExceptions {
+        String select = "SELECT * FROM Rebajo WHERE ID = " + reb.getID();
+
+        try {
+            accesoDatos = new AccesoDatos();
+
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+
+            while (rsPA.next()) {
+                //Si entra aquí es porque sí existe un objeto con ese ID
+                Actualizar(reb);
+                rsPA.close(); //se cierra el ResultSet.
+                return;
+            }
+
+            //Si llega aquí es porque el objeto no existe y se crea
+            Insertar(reb);
+            rsPA.close(); //se cierra el ResultSet.
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
+
+    public void Eliminar(Rebajo reb) throws SNMPExceptions {
+        String strSQL = "SELECT * FROM Rebajo WHERE ID = " + reb.getID();
+
+        try {
+            accesoDatos = new AccesoDatos();
+
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(strSQL);
+
+            while (rsPA.next()) {
+                //Si entra aquí es porque sí existe un objeto con ese ID
+                strSQL = "DELETE FROM Rebajo WHERE ID = " + reb.getID();
+                accesoDatos.ejecutaSQL(strSQL);
+            }
+
+            rsPA.close(); //se cierra el ResultSet.
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
+    }
+
+    private void Actualizar(Rebajo reb) throws SNMPExceptions {
+        String strSQL = "";
+
+        try {
+
+            strSQL = String.format("UPDATE Rebajo SET Detalle = '%s', Total = %f WHERE ID = %d",
+                    reb.getDetalle(), reb.getTotal(), reb.getID());
+
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL);
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        }
     }
 }
