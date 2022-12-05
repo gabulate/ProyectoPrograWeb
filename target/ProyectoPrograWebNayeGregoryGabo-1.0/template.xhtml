@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <head>
+
+        <title>G.N.G Company</title>
+
+        <!-- BoxIcons v2.1.2 -->
+        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+        </link>
+
+        <!-- Roboto Font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;family=Roboto:wght@300;400;500;700;900&amp;display=swap"
+            rel="stylesheet">
+        </link>
+        <!-- CSS File -->
+        <link rel="stylesheet" href="css/style.css">
+        </link>
+        <link rel="icon" href="img/G.N.G.ico">
+        </link>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/mantenimiento.css">
+        </link>
+
+    </head>
+
+    <body onload="Cargado()">
+        <div style="height: 100%" class="container">
+
+            <div class="sidebar">
+
+                <div class="toggle">
+                    <i class="bx bx-chevron-right"></i>
+                </div>
+
+                <div class="logo">
+                    <img src="img/G.N.G.png">
+                        <h3 class="h3logo">G.N.G Company</h3>
+                    </img>
+                </div>
+
+                <nav>
+
+                    <div class="nav-title">
+                        <h:outputLabel id= "rol" value="#{beanIngreso.usuario.rol}"></h:outputLabel>
+                    </div>
+
+                    <ul>
+                        <li class="nav-item">
+                            <a href="ListaPlanillas.xhtml">
+                                <i class="bx bxs-dashboard"></i>
+                                <span>Lista Planillas</span>
+                            </a>
+                        </li>
+                        <li class="empleado nav-item">
+                            <a href="AdministrarEmpleados.xhtml">
+                                <i class="bx bxs-wallet"></i>
+                                <span>Administrar Empleados</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="AdministrarUsuarios.xhtml">
+                                <i class="bx bxs-user"></i>
+                                <span>Administrar Usuarios</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="EditarPerfil.xhtml">
+                                <i class="bx bxs-cog"></i>
+                                <span>Administrar Cuenta</span>
+                            </a>
+                        </li>
+
+                        <li class="salir nav-item">
+                            <a href="index.xhtml">
+                                <i class="bx bxs-exit"></i>
+                                <span>Salir</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <main>
+                <ui:insert name="body">Default Body</ui:insert>   
+
+            </main>
+
+        </div>
+        <!-- JS File -->
+        <script type="text/javascript" src="js/script.js"></script>
+
+    </body>
+
+</html>

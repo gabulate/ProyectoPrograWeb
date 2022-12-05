@@ -7,78 +7,76 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      import="java.util.LinkedList">
+      import="java.util.LinkedList"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <head>
-        <title>Lista de Planillas</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="css/mantenimiento.css"></link>
-    </head>
-    <body>
-        <h:form>
-            <div class="center">
-                <button class="button"><a href="Principal.xhtml">Volver al Inicio</a></button>
-                <h:commandButton class="button" value="Generar Nueva Planilla" actionListener="#{beanPlanillas.AbrirPaginaCreacion()}"></h:commandButton>
-            </div>
+    <ui:composition template="template.xhtml">
+        <ui:define name="body">
+            
+            <h:form>
+                <div class="center">
+                    <h:commandButton class="button" value="Generar Nueva Planilla" actionListener="#{beanPlanillas.AbrirPaginaCreacion()}"></h:commandButton>
+                </div>
 
 
-            <div align="center" class="tablaMantenimiento">
-                <h:dataTable value="#{beanPlanillas.listaPlanillas}" var="planilla" class="tabla">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Número"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{planilla.ID}"></h:outputText>
-                    </h:column>
+                <div align="center" class="tablaMantenimiento">
+                    <h:dataTable value="#{beanPlanillas.listaPlanillas}" var="planilla" class="tabla">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Número"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.ID}"></h:outputText>
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Fecha Inicio"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{planilla.fechaInicio}"></h:outputText>
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Inicio"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.fechaInicio}"></h:outputText>
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Fecha Final"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{planilla.fechaFinal}"></h:outputText>
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Final"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.fechaFinal}"></h:outputText>
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Tipo"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{planilla.tipo}"></h:outputText>
-                    </h:column>  
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.tipo}"></h:outputText>
+                        </h:column>  
 
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Jornada"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{planilla.jornada}"></h:outputText>
-                    </h:column>  
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Jornada"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.jornada}"></h:outputText>
+                        </h:column>  
 
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Fecha de Pago"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{planilla.fechaPago}"></h:outputText>
-                    </h:column>  
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha de Pago"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.fechaPago}"></h:outputText>
+                        </h:column>  
 
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="✍"></h:outputText>
-                        </f:facet>
-                        <h:commandLink value="Ver Planilla" actionListener="#{beanPlanillas.MostrarDetalle(planilla)}" ></h:commandLink>
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="✍"></h:outputText>
+                            </f:facet>
+                            <h:commandLink value="Ver Planilla" actionListener="#{beanPlanillas.MostrarDetalle(planilla)}" ></h:commandLink>
+                        </h:column>
 
-                </h:dataTable>
+                    </h:dataTable>
 
 
-                <h:outputText value="#{beanListaPlanilla.mensaje}" style="color: red"></h:outputText>
-            </div>
+                    <h:outputText value="#{beanListaPlanilla.mensaje}" style="color: red"></h:outputText>
+                </div>
 
-        </h:form>
-    </body>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </html>

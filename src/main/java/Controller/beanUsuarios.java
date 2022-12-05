@@ -22,7 +22,7 @@ public class beanUsuarios {
     private boolean admin = false;
 
     //Objeto empleado para editar
-    private Usuario usuario;
+    public static Usuario usuario = null;
 
     private String contraActual = "";
     private String contraNueva = "";
@@ -103,8 +103,11 @@ public class beanUsuarios {
 
     }
 
-    public void Deshacer() throws SNMPExceptions, IOException {
+    public void Deshacer() throws SNMPExceptions, IOException, SQLException {
+        this.usuario = new UsuarioDB().getByID(this.usuario.getID());
+        
         Editar(new UsuarioDB().getByID(this.usuario.getID()), admin);
+
         contraActual = "";
         contraNueva = "";
         confirmaContra = "";
@@ -114,7 +117,7 @@ public class beanUsuarios {
         if (admin) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("AdministrarUsuarios.xhtml");
         } else {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("Principal.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("ListaPlanillas.xhtml");
         }
     }
 
@@ -136,6 +139,7 @@ public class beanUsuarios {
             FacesContext.getCurrentInstance().getExternalContext().redirect("EditarUsuario.xhtml");
         } else {
             FacesContext.getCurrentInstance().getExternalContext().redirect("EditarPerfil.xhtml");
+            this.usuario = beanIngreso.usuario;
         }
     }
 
@@ -158,7 +162,10 @@ public class beanUsuarios {
         this.listaUsuarios = listaUsuarios;
     }
 
-    public Usuario getUsuario() {
+    public Usuario getUsuario() throws SNMPExceptions, SQLException {
+        if (usuario == null) {
+            this.usuario = beanIngreso.usuario;
+        }
         return usuario;
     }
 

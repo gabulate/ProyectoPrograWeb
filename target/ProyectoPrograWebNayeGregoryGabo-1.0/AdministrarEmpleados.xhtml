@@ -7,76 +7,79 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      import="java.util.LinkedList">
-    <head>
-        <title>Administrar Empleados</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="css/mantenimiento.css"></link>
-    </head>
-    <body>
-        <h:form>
-            <div class="center">
-                <h:commandButton class="button" value="Añadir Empleado" actionListener="#{beanEmpleados.AnadirEmpleado()}"></h:commandButton>
-                <button class="button"><a href="Principal.xhtml">Volver al Inicio</a></button>
+      import="java.util.LinkedList"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="template.xhtml">
+        <ui:define name="body">
+
+            <div style="height: 100%" class="container">
+                <h:form>
+                    <div class="center">
+                        <h:commandButton class="button" value="Añadir Empleado" actionListener="#{beanEmpleados.AnadirEmpleado()}"></h:commandButton>
+                    </div>
+
+                    <div align="center" class="tablaMantenimiento">
+                        <h:dataTable value="#{beanEmpleados.listaEmpleados}" var="empleado" class="tabla">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cédula"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{empleado.cedula}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{empleado.nombre}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Tipo Jornada"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{empleado.jornada}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Teléfono"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{empleado.telefono}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Salario"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{empleado.salario}"></h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Estado"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{empleado.activo ? 'Activo' : 'Inactivo'}"></h:outputText>
+                            </h:column>  
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="✍"></h:outputText>
+                                </f:facet>
+                                <h:commandLink value="Editar" actionListener="#{beanEmpleados.Editar(empleado)}" ></h:commandLink>
+                            </h:column>
+
+                        </h:dataTable>
+
+                        <h:outputText value="#{beanEmpleados.mensaje}" style="color: red"></h:outputText>
+
+                    </div>
+
+                </h:form>
             </div>
-
-            <div align="center" class="tablaMantenimiento">
-                <h:dataTable value="#{beanEmpleados.listaEmpleados}" var="empleado" class="tabla">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Cédula"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{empleado.cedula}"></h:outputText>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nombre"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{empleado.nombre}"></h:outputText>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Tipo Jornada"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{empleado.jornada}"></h:outputText>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Teléfono"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{empleado.telefono}"></h:outputText>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Salario"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{empleado.salario}"></h:outputText>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Estado"></h:outputText>
-                        </f:facet>
-                        <h:outputText value="#{empleado.activo ? 'Activo' : 'Inactivo'}"></h:outputText>
-                    </h:column>  
-
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="✍"></h:outputText>
-                        </f:facet>
-                        <h:commandLink value="Editar" actionListener="#{beanEmpleados.Editar(empleado)}" ></h:commandLink>
-                    </h:column>
-
-                </h:dataTable>
-
-                <h:outputText value="#{beanEmpleados.mensaje}" style="color: red"></h:outputText>
-
-            </div>
-
-        </h:form>
-    </body>
+            <!-- JS File -->
+            <script type="text/javascript" src="js/script.js"></script>
+        </ui:define>
+    </ui:composition>
 </html>

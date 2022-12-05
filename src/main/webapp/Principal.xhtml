@@ -1,37 +1,165 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      import="java.util.LinkedList">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <head>
-        <title>Administrador de planillas</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="css/mantenimiento.css"></link>
+
+        <title>G.N.G Company</title>
+
+        <!-- BoxIcons v2.1.2 -->
+        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+        </link>
+
+        <!-- Roboto Font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;family=Roboto:wght@300;400;500;700;900&amp;display=swap"
+            rel="stylesheet">
+        </link>
+        <!-- CSS File -->
+        <link rel="stylesheet" href="css/style.css">
+        </link>
+        <link rel="icon" href="img/G.N.G.ico">
+        </link>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/mantenimiento.css">
+        </link>
+
     </head>
-    <body>
-        <!-- Página principal que dirige a todas los otros módulos -->
-        <h:form>
-            <div align="center" class="datagrid">
-                <h:outputLabel value="#{beanIngreso.usuario.rol}"></h:outputLabel>
-                <br></br>
-                <br></br>
-                <a href="index.xhtml">Cerrar sesión</a>
-                <br></br>
-                <br></br>
-                <a href="ListaPlanillas.xhtml">Lista de Planillas</a>
-                <br></br>
-                <br></br>
-                <a href="AdministrarEmpleados.xhtml">Administrar Empleados</a>
-                <br></br>
-                <br></br>
-                <a href="AdministrarUsuarios.xhtml">Administrar Usuarios</a>
-                <br></br>
-                <br></br>
-                <h:commandLink value=" Configuración de la cuenta" actionListener="#{beanUsuarios.Editar(beanIngreso.usuario, false)}"></h:commandLink> 
+
+    <body onload="Validar()">
+        <div style="height: 100%" class="container">
+
+            <div class="sidebar">
+
+                <div class="toggle">
+                    <i class="bx bx-chevron-right"></i>
+                </div>
+
+                <div class="logo">
+                    <img src="img/G.N.G.png">
+                        <h3 class="h3logo">G.N.G Company</h3>
+                    </img>
+                </div>
+
+                <nav>
+
+                    <div class="nav-title">
+                        Management
+                    </div>
+
+                    <ul>
+                        <li class="nav-item active">
+                            <a href="ListaPlanillas.xhtml">
+                                <i class="bx bxs-dashboard"></i>
+                                <span>Lista Planillas</span>
+                            </a>
+                        </li>
+                        <li class="empleado nav-item">
+                            <a href="AdministrarEmpleados.xhtml">
+                                <i class="bx bxs-wallet"></i>
+                                <span>Administrar Empleados</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="AdministrarUsuarios.xhtml">
+                                <i class="bx bxs-user"></i>
+                                <span>Administrar Usuarios</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="AdministrarCuenta.xhtml">
+                                <i class="bx bxs-cog"></i>
+                                <span>Administrar Cuenta</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="index.xhtml">
+                                <i class="bx bxs-exit"></i>
+                                <span>Salir</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        </h:form>
+
+            <h:form class="center">
+                <h:outputLabel id= "rol" value="#{beanIngreso.usuario.rol}"></h:outputLabel>
+                <br></br>
+                <br></br>
+                <div>
+                    <h:commandButton class="button" value="Generar Nueva Planilla"
+                                     actionListener="#{beanPlanillas.AbrirPaginaCreacion()}"></h:commandButton>
+                </div>
+
+                <div align="center" class="tablaMantenimiento">
+                    <h:dataTable value="#{beanPlanillas.listaPlanillas}" var="planilla" class="tabla">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Número"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.ID}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Inicio"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.fechaInicio}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Final"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.fechaFinal}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.tipo}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Jornada"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.jornada}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha de Pago"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{planilla.fechaPago}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="✍"></h:outputText>
+                            </f:facet>
+                            <h:commandLink value="Ver Planilla" actionListener="#{beanPlanillas.MostrarDetalle(planilla)}">
+                            </h:commandLink>
+                        </h:column>
+
+                    </h:dataTable>
+
+
+                    <h:outputText value="#{beanListaPlanilla.mensaje}" style="color: red"></h:outputText>
+                </div>
+
+            </h:form>
+        </div>
+
+
+        <!-- JS File -->
+        <script type="text/javascript" src="js/script.js"></script>
 
     </body>
+
 </html>

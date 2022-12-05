@@ -12,23 +12,27 @@ import javax.faces.context.FacesContext;
  * @author Gabri
  */
 public class beanIngreso {
+
     String nombre = "";
     String clave = "";
 
     String mensaje = "";
-    
-    Usuario usuario = null;
 
-    public void Ingresar() throws IOException, SNMPExceptions, SQLException {    
-        if(new UsuarioDB().VerificarUsuario(nombre, clave)){
+    static Usuario usuario = null;
+
+    public void Ingresar() throws IOException, SNMPExceptions, SQLException {
+        usuario = null;
+        if (new UsuarioDB().VerificarUsuario(nombre, clave)) {
             usuario = new UsuarioDB().getByNombre(nombre);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("Principal.xhtml");
-        } else{
+            beanUsuarios.usuario = null;
+            FacesContext.getCurrentInstance().getExternalContext().redirect("ListaPlanillas.xhtml");
+        } else {
             mensaje = "Credenciales incorrectas.";
         }
     }
 
     public Usuario getUsuario() {
+        
         return usuario;
     }
 

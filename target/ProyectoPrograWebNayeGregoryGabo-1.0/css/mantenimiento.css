@@ -16,6 +16,8 @@ body{
 
 .center {
     text-align: center;
+    float: start;
+    position:relative;
 }
 
 h3{
