@@ -27,7 +27,10 @@
                 <h:selectBooleanCheckbox value="#{beanPlanillas.calrenta}"></h:selectBooleanCheckbox>
                 <br></br>
                 <br></br>
-
+                <h:outputText style="margin-left: 22px;" value="Porcentaje CCSS:"></h:outputText>
+                <h:inputText value="#{beanPlanillas.CCSS}" converterMessage="Por favor ingresar la fecha en un formato de día/mes/año"></h:inputText>
+                <br></br>
+                <br></br>
                 <h:outputText value="Tipo de Planilla:"></h:outputText>
                 <h:selectOneMenu value="#{beanPlanillas.tipo}" onchange="submit()">
                     <f:selectItems value="#{beanPlanillas.listaTipos}"/>

@@ -20,6 +20,7 @@ import Model.Entidades.TipoJornada;
 import Model.ClasesDB.TipoJornadaDB;
 import Model.Entidades.TipoPlanilla;
 import Model.ClasesDB.TipoPlanillaDB;
+import Model.Entidades.ObjetoReporte;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -36,6 +37,7 @@ public class beanPlanillas {
     //Propiedades para mostrar las planillas////////////
     private LinkedList<Planilla> listaPlanillas = new LinkedList<>();
     private LinkedList<DetallePlanilla> ListaDetallePlanilla;
+    private LinkedList<ObjetoReporte> ListaReportes;
     ////////////////////////////////////////////////////
 
     //Propiedades para crear una planilla nueva/////////
@@ -54,7 +56,7 @@ public class beanPlanillas {
     int idTipo = 0;
     private LinkedList<TipoPlanilla> listaTipos;
 
-    private float CCSS = 10;
+    private float CCSS = 11;
     private boolean calccss = true;
     private boolean calrenta = true;
     ///////////////////////////////////////////////////
@@ -83,8 +85,6 @@ public class beanPlanillas {
 
         TipoJornada tipoJornada = new TipoJornadaDB().getByID(idJornada);
         TipoPlanilla tipoPlanilla = new TipoPlanillaDB().getByID(idTipo);
-
-        CCSS = 15;
 
         //Crea los Objetos de DetallePlanilla///////////////////////////////////////////
         for (Empleado e : ListaEmpleados) {
@@ -198,6 +198,7 @@ public class beanPlanillas {
 
     //Pasa a la página de detalle con la lista de detalles de la planilla seleccionada
     public void MostrarDetalle(Planilla planilla) throws SNMPExceptions, SQLException, IOException {
+        this.planilla = planilla;
         ListaDetallePlanilla = new DetallePlanillaDB().getFromIdPlanilla(planilla.getID());
 
         FacesContext.getCurrentInstance().getExternalContext().redirect("VerPlanilla.xhtml");
@@ -219,6 +220,19 @@ public class beanPlanillas {
         return listaPlanillas;
     }
 
+    public void ProcesoPago() throws IOException, SNMPExceptions, SQLException {
+        this.planilla = planilla;
+        ListaDetallePlanilla = new DetallePlanillaDB().getFromIdPlanilla(planilla.getID());
+        ListaReportes = new LinkedList<>();
+        
+        for(DetallePlanilla d : ListaDetallePlanilla){
+           Empleado emp = new EmpleadoDB().getByID(d.getIdEmpleado());
+           ListaReportes.add(new ObjetoReporte(emp, d));
+        }
+        
+        FacesContext.getCurrentInstance().getExternalContext().redirect("Reporte.xhtml");
+    }
+
     public void setListaPlanillas(LinkedList<Planilla> listaPlanillas) {
         this.listaPlanillas = listaPlanillas;
     }
@@ -232,7 +246,6 @@ public class beanPlanillas {
     }
 
     public LinkedList<DetallePlanilla> getListaDetallePlanilla() {
-        System.out.print(ListaDetallePlanilla.size());
         return ListaDetallePlanilla;
     }
 
@@ -346,5 +359,13 @@ public class beanPlanillas {
 
     public void setPlanilla(Planilla planilla) {
         this.planilla = planilla;
+    }
+
+    public LinkedList<ObjetoReporte> getListaReportes() {
+        return ListaReportes;
+    }
+
+    public void setListaReportes(LinkedList<ObjetoReporte> ListaReportes) {
+        this.ListaReportes = ListaReportes;
     }
 }

@@ -26,6 +26,7 @@ public class beanDetalle {
 
     private Planilla planilla;
     private DetallePlanilla detalle;
+    private String fecha;
 
     private LinkedList<Rebajo> listaRebajos = new LinkedList<>();
     private LinkedList<Bonus> listaBonus = new LinkedList<>();
@@ -48,11 +49,11 @@ public class beanDetalle {
         for (Rebajo r : listaRebajos) {
             SalarioNeto -= r.getTotal();
         }
-        
+
         for (Bonus b : listaBonus) {
             SalarioNeto += b.getTotal();
         }
-        
+
         detalle.setSalarioNeto(SalarioNeto);
     }
 
@@ -149,5 +150,21 @@ public class beanDetalle {
 
     public void setListaBonus(LinkedList<Bonus> listaBonus) {
         this.listaBonus = listaBonus;
+    }
+
+    public Planilla getPlanilla() {
+        return planilla;
+    }
+
+    public void setPlanilla(Planilla planilla) {
+        this.planilla = planilla;
+    }
+
+    public String getFecha() {
+        return "Planilla del " + planilla.getFechaInicio().toString() + " al " + planilla.getFechaFinal().toString();
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

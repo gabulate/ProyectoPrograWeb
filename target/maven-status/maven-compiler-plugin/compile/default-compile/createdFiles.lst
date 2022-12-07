@@ -7,6 +7,7 @@ com\mycompany\proyectoprograwebnayegregorygabo\resources\JavaEE8Resource.class
 Model\Entidades\Bonus.class
 Controller\beanDetalle.class
 Model\ClasesDB\RebajoDB.class
+Model\Entidades\ObjetoReporte.class
 Model\ClasesDB\DeduccionDB.class
 Model\Entidades\Beneficio.class
 Model\Entidades\Usuario.class

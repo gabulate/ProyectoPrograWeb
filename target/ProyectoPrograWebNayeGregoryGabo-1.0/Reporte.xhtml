@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Reporte</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/mantenimiento.css"></link>
+    </head>
+    <body>
+        <div>
+            <h:form>
+
+                <div align="center" >
+                    <h:commandButton class="button" value="Regresar" actionListener="#{beanDetalle.Cancelar()}" ></h:commandButton>
+                </div>
+
+                <div id="contenido" align="center" class="tablaMantenimiento">
+
+                    <div class="pablo">
+                        <h:outputText class="fecha" value="Planilla del: #{beanPlanillas.planilla.fechaPago}"></h:outputText>
+                    </div>
+
+                    <h:dataTable value="#{beanPlanillas.listaReportes}" var="detalle" class="tabla">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cédula"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{detalle.empleado.cedula}"></h:outputText>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{detalle.empleado.nombre}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Horas Trabajadas"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{detalle.detalle.horasTrabajadas}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Salario Bruto"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{detalle.detalle.salarioBruto}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Horas Extra"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{detalle.detalle.horasExtra}"></h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Salario Neto"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{detalle.detalle.salarioNeto}"></h:outputText>
+                        </h:column>
+                        <br/>
+                        <br/>
+                    </h:dataTable>
+
+                </div>
+            </h:form>
+        </div>
+
+        <!-- Botón para descargar como pdf -->
+        <div align="center" >
+            <div id="editor"></div>
+            <button id="btn" onclick="CreatePDFfromHTML()" class="button">Descargar PDF</button>
+        </div>
+
+        <!-- Scripts de librerías para descargar pdf -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript" src="js/descargarPDF.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </body>
+</html>
