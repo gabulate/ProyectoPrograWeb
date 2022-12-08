@@ -80,13 +80,16 @@ public class PlanillaDB {
     }
 
     public LinkedList<Planilla> moTodo() throws SNMPExceptions, SQLException {
-        String select = "SELECT * FROM Planilla order by ID desc";
+        String select = "SELECT Planilla.ID, IdTipoJornada, FechaInicio, FechaFinal, FechaPago, IdTipoPlanilla,\n"
+                + "TipoJornada.Nombre as 'Jornada', TipoPlanilla.Nombre as 'Tipo' FROM Planilla, TipoJornada, TipoPlanilla \n"
+                + "WHERE (IdTipoJornada = TipoJornada.ID) and (TipoPlanilla.ID = IdTipoPlanilla)\n"
+                + "order by Planilla.ID desc";
 
-        LinkedList<Planilla> listaPlanilla = new LinkedList<Planilla>();
+        LinkedList<Planilla> listaPlanilla = new LinkedList<>();
 
         try {
             //Se intancia la clase de acceso a datos
-            AccesoDatos accesoDatos = new AccesoDatos();
+            accesoDatos = new AccesoDatos();
 
             //se ejecuta la sentencia sql
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -102,8 +105,11 @@ public class PlanillaDB {
                 Date FechaPago = rsPA.getDate("FechaPago");
                 int IdTipoPlanilla = rsPA.getInt("IdTipoPlanilla");
 
+                String jornada = rsPA.getString("Jornada");
+                String tipo = rsPA.getString("Tipo");
+
                 //se construye el objeto.
-                Planilla planilla = new Planilla(ID, IdJornada, FechaInicio, FechaFinal, FechaPago, IdTipoPlanilla);
+                Planilla planilla = new Planilla(ID, IdJornada, FechaInicio, FechaFinal, FechaPago, IdTipoPlanilla, jornada, tipo);
 
                 listaPlanilla.add(planilla);
             }

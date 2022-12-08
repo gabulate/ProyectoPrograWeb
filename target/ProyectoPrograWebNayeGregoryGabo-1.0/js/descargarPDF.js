@@ -11,7 +11,7 @@ function CreatePDFfromHTML() {
             var nombre = document.getElementsByClassName('fecha')[0].innerHTML;
             doc.save(nombre);
         },
-        x: 200,
+        x: -200,
         y: 15
     });
 }

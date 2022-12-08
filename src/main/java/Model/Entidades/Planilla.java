@@ -34,7 +34,19 @@ public class Planilla {
         jornada = new TipoJornadaDB().getByID(IdTipoJornada).Nombre;
         tipo = new TipoPlanillaDB().getByID(IdTipoPlanilla).Nombre;
     }
-    
+
+    public Planilla(int ID, int IdTipoJornada, Date FechaInicio, Date FechaFinal,
+            Date FechaPago, int IdTipoPlanilla, String jornada, String tipo) throws SNMPExceptions, SQLException {
+        this.ID = ID;
+        this.IdTipoJornada = IdTipoJornada;
+        this.FechaInicio = FechaInicio;
+        this.FechaFinal = FechaFinal;
+        this.FechaPago = FechaPago;
+        this.IdTipoPlanilla = IdTipoPlanilla;
+
+        this.jornada = jornada;
+        this.tipo = tipo;
+    }
 
     public int getID() {
         return ID;
