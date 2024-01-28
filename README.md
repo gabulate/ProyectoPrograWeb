@@ -1,11 +1,11 @@
 # Payroll calculator website
 
 <b>Project made for course:</b> ISW-613 Programación en Ambiente Web I.
-<b>Made by</<b>
+<h2>Made by</h2>
 <ul>
-  <ol>Gregory Chavez Arias</ol>
-  <ol>Nayeli Alfaro Soto</ol>
-  <ol>Gabriel Ulate Moreira</ol>
+  <li>Gregory Chavez Arias</li>
+  <li>Nayeli Alfaro Soto</li>
+  <li>Gabriel Ulate Moreira</li>
 </ul>
 
 <h2>Made with</h2>
